@@ -9,12 +9,14 @@ btnsubmit.addEventListener("click", validate);
 
 function validate(evt) {
   let params = `username=${username.value}&password=${password.value}&repassword=${repassword.value}&email=${email.value}`;
-  xhr.open("POST", "http://localhost:8080/sign/validsignup", true);
+  xhr.open("POST", "https://localhost:8080/sign/validsignup", true);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.send(params);
   xhr.onreadystatechange = function() {
     console.log(params);
     console.log(this.responseText);
+	console.log("ahoo");
+	console.log(this);
     if (username.value.length == 0) {
       erormsg.textContent = "اسم المستخدم غير صالح";
       return;
