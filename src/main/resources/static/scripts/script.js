@@ -9,7 +9,7 @@ btnsubmit.addEventListener("click", validate);
 
 function validate(evt) {
   let params = `username=${username.value}&password=${password.value}&repassword=${repassword.value}&email=${email.value}`;
-  xhr.open("POST", "https://localhost:8080/sign/validsignup", true);
+  xhr.open("POST", "https://localhost:3053/sign/validsignup", true);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.send(params);
   xhr.onreadystatechange = function() {
