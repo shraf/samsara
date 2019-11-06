@@ -1,0 +1,124 @@
+<html xmlns:th="https://thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <link th:href="@{/styles/style.css}" rel="stylesheet" />
+        <script
+            src="https://kit.fontawesome.com/3959db2254.js"
+            crossorigin="anonymous"
+        ></script>
+        <link
+            href="https://fonts.googleapis.com/css?family=Cairo:200,300,400,600,700,900&amp;subset=arabic,latin-ext"
+            rel="stylesheet"
+            />
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"
+        ></script>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+            />
+    </head>
+  <body style="font-family: 'Cairo', sans-serif;">
+    <div class="container-fluid pl-0 pr-0">
+      <header>
+                <div class="fixed-top navbar navbar-expand-md header-navbar" style="">
+                    <button
+                        class="btn navbar-toggler navbar-light"
+                        data-toggle="collapse"
+                        data-target="#navcontents"
+                        type="button"
+                        >
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navcontents" style="">
+                    <ul class="navbar-nav m-auto header-ul" style="">
+                        <li class="nav-item"><a href="#" class="nav-link" th:href="@{/}">الصفحة الرئيسية </a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">من نحن</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">تواصل معنا</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">الاسألة الشائعة</a></li>
+                        <span th:if="${session[SPRING_SECURITY_CONTEXT]==null}"><li class="nav-item"><a href="/signup" class="nav-link">تسجيل</a></li>
+                            <li class="nav-item"><a href="adsviewer" class="nav-link"></a> </li>
+                        </span>
+                        <span th:if="${session[SPRING_SECURITY_CONTEXT]!=null}"><li class="nav-item"><a th:href="@{/logout}" class="nav-link">تسجيل خروج</a></li></span>
+                    </ul>
+                </div>
+                </div>
+            </header>
+      <div class="row">
+        <aside class="col-3 "style="margin-top:100px;">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">اضافة اعلانن</h5>
+              <p class="card-text">
+                  <a class="stretched-link text-muted" href="#" th:href="@{/adform}" style="text-decoration: none;">
+                حط اعلان سواء عاوز تشترى او تبيع او تأجر بس ياريت تتفقد الاعلانات الموجودة اولريدى الاول
+                  </a>
+                  </p>
+              
+              
+            </div>
+          </div>
+         
+        </aside>
+        <div class="main-section col-7">
+          
+        
+        <section
+          class="ads "
+          style="position:fixed;overflow-y: scroll;height: 100%;margin-top:100px;"
+        >
+          <div class="card" th:each="ad:${ads}">
+            <div class="card-body">
+              <h5 class="card-title">
+                  <a class="stretched-link" href="/ad" th:href="|/ad?id=${ad.id}|" th:text="${ad.title}" style="text-decoration:none; color:black;font-weight: bold"></a>
+            </h5>
+              <h6 class="card-subtitle mb-2 text-muted" th:text="${ad.user.userName}">Card subtitle</h6>
+              <p class="card-text">
+                  <span th:text="${ad.describtion}"></span>
+              </p>
+             
+            </div>
+          </div>
+          
+        </section>
+      </div>
+      <nav aria-label="Page navigation example" class="fixed-bottom" style="">
+        <ul class="pagination ">
+          <li class="page-item "><a class="page-link" href="#">Previous</a></li>
+          <ul class="pagination" th:each="page:${#numbers.sequence(1,totalPages)}">
+              
+              <th:block th:if=" ${#strings.equals(param.pagenumber, #strings.toString(page))}"> <li class="page-item active"><a class="page-link " href="#" th:text="${page}" th:href="|/ads?pagenumber=${page}|"></a></li></th:block>
+              <th:block th:if="${#strings.equals(param.pagenumber,#strings.toString(page))==false}"><li class="page-item"><a class="page-link" href="#" th:text="${page}" th:href="|/ads?pagenumber=${page}|" ></a></li></th:block>
+          </ul>
+          <li class="page-item"><a class="page-link" href="#"  th:text="Next" onclick="nextpage()">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+  </body>
+  <script>
+      console.log("ho");
+      function nextpage(){
+          console.log("hi");
+          let url=window.location.href;
+          let nurl=new URL(url)
+          let pagenumber=nurl.searchParams.get("pagenumber");
+          console.log(pagenumber);
+          console.log(window.location.href);
+          window.location.href="http://localhost:8080/ads?pagenumber="+(++pagenumber);
+      }
+  </script>
+</html>

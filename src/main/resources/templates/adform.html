@@ -1,0 +1,222 @@
+<html xmlns:th="https://thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <link th:href="@{/styles/style.css}" rel="stylesheet" />
+        <script
+            src="https://kit.fontawesome.com/3959db2254.js"
+            crossorigin="anonymous"
+        ></script>
+        <link
+            href="https://fonts.googleapis.com/css?family=Cairo:200,300,400,600,700,900&amp;subset=arabic,latin-ext"
+            rel="stylesheet"
+            />
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"
+        ></script>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+            />
+    </head>
+    <body style="font-family: 'Cairo', sans-serif;">
+        <div class="container-fluid pl-0 pr-0">
+            <header>
+                <div class="fixed-top navbar navbar-expand-md header-navbar" style="">
+                    <button
+                        class="btn navbar-toggler navbar-light"
+                        data-toggle="collapse"
+                        data-target="#navcontents"
+                        type="button"
+                        >
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navcontents" style="">
+                    <ul class="navbar-nav m-auto header-ul" style="">
+                        <li class="nav-item"><a href="#" class="nav-link" th:href="@{/}">الصفحة الرئيسية </a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">من نحن</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">تواصل معنا</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">الاسألة الشائعة</a></li>
+                        <span th:if="${session[SPRING_SECURITY_CONTEXT]==null}"><li class="nav-item"><a href="/signup" class="nav-link">تسجيل</a></li>
+                            <li class="nav-item"><a href="adsviewer" class="nav-link"></a> </li>
+                        </span>
+                        <span th:if="${session[SPRING_SECURITY_CONTEXT]!=null}"><li class="nav-item"><a th:href="@{/logout}" class="nav-link">تسجيل خروج</a></li></span>
+                    </ul>
+                </div>
+                </div>
+            </header>
+            <div class="form" style="margin-top: 150px;">
+                <form class="adform" th:action="@{/ads/add}" method="post" id="ad-form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <p id="errortitle"></p>
+                        <label for="title" class="float-right">عنوان الاعلان</label>
+                        <input
+                            type="text"
+                            name="title"
+                            id="title"
+                            class="form-control"
+                            placeholder="عنوان الاعلان"
+                            />
+                    </div>
+                    <div class="form-group text-center">
+                        <p id="errordes"></p>
+                        <p>description</p>
+                        <textarea
+                            name="describtion"
+                            id="describtion"
+                            cols="30"
+                            rows="10"
+                            class="form-control
+                            "
+                            ></textarea>
+                    </div>
+                    <div class="form-group" id="files-group">
+                        <label
+                            for="btnfiles"
+                            style="display: block; text-align: right;"
+                            class=""
+                            >ارفع صور وفيديوهات شقتك للمعاينة</label
+                        >
+                        <button
+                            name="btnfiles"
+                            class="btn btn-primary welcome-btn "
+                            type="button"
+                            onclick="uploadfile()"
+                            >
+                            اختيار الملفات
+                        </button>
+                        <span id="imagedisplay"></span>
+                        
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary welcome-btn " type="submit">
+                            اضافة اعلان
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <footer class="">
+                <div class="footer-links">
+                    <div class="navbar footer-navbar" style="background-color:#3500d3; ">
+                        <ul class="nav m-auto">
+                            <li class="nav-item">
+                                <a
+                                    href="#"
+                                    class="nav-link fab fa-facebook fa-2x"
+                                    style="color: #f64c72"
+                                    ></a>
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    href="#"
+                                    class="nav-link fab fa-instagram fa-2x"
+                                    style="color: #f64c72"
+                                    ></a>
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    href="#"
+                                    class="nav-link fab fa-twitter fa-2x"
+                                    style="color: #f64c72"
+                                    ></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </body>
+
+    <script>
+        let filesnumber = 1;
+        var textnodetitle;
+        let titleErrMsg = document.querySelector("#errortitle");
+        let desErrMsg = document.querySelector("#errordes");
+        function validate(evt) {
+            let title = document.querySelector("#title").value;
+            let description = document.querySelector("#describtion").value;
+            titleErrMsg.style.color = "red";
+            desErrMsg.style.color = "red";
+            titleErrMsg.textContent = "";
+            desErrMsg.textContent = "";
+
+            if (title.length < 4) {
+                console.log(title.length);
+                titleErrMsg.textContent = "العنوان قصير جدا";
+                //  evt.preventDefault();
+            }
+
+            if (description.length < 20) {
+                desErrMsg.textContent = "الوصف قصير جدا";
+                //  evt.preventDefault();
+            }
+            if (title.length >= 4 && description.length >= 20) {
+                document.querySelector(".adform").submit();
+            }
+        }
+
+        function FileSelected(input) {
+            /*   files = document.getElementById("files").files;
+             let filesnames = "";
+             let filesarr = Array.from(files);
+             console.log(files);
+             filesarr.forEach(file => (filesnames += file.name + " "));
+             document.getElementById("fileName").textContent = filesnames;
+             console.log(e.target.result);*/
+            input = window.event;
+            let imgdisplay = document.querySelector("#imagedisplay");
+            let img = document.createElement("img");
+            let closebtn = document.createElement("button");
+            closebtn.type = "button";
+            closebtn.className = "closebtn";
+            closebtn.setAttribute("onclick", "removeImg(this)");
+            img.src = URL.createObjectURL(input.target.files[0]);
+            img.style.width = "100px";
+            img.style.height = "100px";
+            img.style.marginRight = "10px";
+            imgdisplay.appendChild(img);
+            imgdisplay.appendChild(closebtn);
+            console.log(input.target);
+            console.log(input.target.files[0]);
+        }
+        function uploadfile() {
+            let parent = document.querySelector("#files-group");
+            let element = document.createElement("input");
+            element.type = "file";
+            element.name = "files";
+            element.id = `files${filesnumber}`;
+            element.style.width = "0px";
+            element.setAttribute("onchange", "FileSelected(this)");
+            parent.appendChild(element);
+            filesnumber++;
+            element.click();
+        }
+        function removeImg(btn) {
+            console.log(event);
+
+            let imgparent = document.querySelector("#imagedisplay");
+            let fileparent = document.querySelector("#files-group");
+            console.log(event);
+            console.log(event.target);
+            console.log(event.target.previousElementSibling);
+            imgparent.removeChild(event.target.previousElementSibling);
+            console.log(document.querySelector(`#files${filesnumber}`));
+            fileparent.removeChild(document.querySelector(`#files${filesnumber}`));
+            imgparent.removeChild(btn);
+            filesnumber--;
+        }
+    </script>
+</html>

@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css?family=Cairo:200,300,400,600,700,900&subset=arabic,latin-ext");
+
+.body {
+  font-family: "Cairo", sans-serif;
+}
+
+/*header*/
+header {
+  font-size: 18px !important;
+}
+
+.header-navbar {
+  padding: 20px;
+  background-color: #f64c72;
+  height: 83px;
+}
+.header-ul {
+  background-color: #f64c72;
+  border-radius: 10px;
+}
+.nav-link {
+  color: #fff;
+  margin-left: 80px;
+  transition: all 0.4s;
+}
+
+.nav-link:hover {
+  color: #3500d3;
+  transform: translateY(-10px);
+  transition: all 0.5s;
+}
+
+/*main content*/
+.welcome-content {
+  background-color: #3500d3;
+  opacity: 0.8;
+  margin-top: 83px;
+  padding-bottom: 20px;
+}
+
+.text-content {
+  padding-top: 80px;
+}
+
+.welcome-btn {
+  background-color: #f64c72 !important;
+  border: 0px !important;
+  width: 350px !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.welcome-btn:hover {
+  background-color: #e7896e !important;
+  transition: all 0.15s !important;
+}
+
+/*easy steps*/
+.easy-steps {
+  color: #000;
+}
+
+.card {
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 1px rgb(167, 152, 152);
+  min-height: 230px !important;
+}
+
+/*footer*/
+.footer-navbar a,
+.footer-navbar li {
+}
+/****************************sign page*/
+/*sign up form*/
+.signup-form {
+  padding-left: 50px !important;
+}
+.sign-form {
+}
+.form-group {
+  margin: 50px;
+}
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+  border: #f64c72 !important;
+}
+/*closebtn*/
+.closebtn {
+  border: 2px solid #ad235e;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  background-image: url("../close.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transform: translateY(-50px);
+}

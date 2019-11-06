@@ -1,0 +1,142 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link href="/styles/style.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3959db2254.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Cairo:200,300,400,600,700,900&amp;subset=arabic,latin-ext"
+        rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body style="font-family: 'Cairo', sans-serif;">
+    <div class="container-fluid pl-0 pr-0">
+        <header>
+            <div class="fixed-top navbar navbar-expand-md header-navbar" style="">
+                <button class="btn navbar-toggler navbar-light" data-toggle="collapse" data-target="#navcontents"
+                    type="button"> <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navcontents" style="">
+                    <ul class="navbar-nav m-auto header-ul" style="">
+                        <li class="nav-item"><a href="#" class="nav-link" th:href="@{/}">الصفحة الرئيسية </a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">من نحن</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">تواصل معنا</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">الاسألة الشائعة</a></li>
+                        <span th:if="${session[SPRING_SECURITY_CONTEXT]==null}"><li class="nav-item"><a href="/signup" class="nav-link">تسجيل</a></li>
+                            <li class="nav-item"><a href="adsviewer" class="nav-link"></a> </li>
+                        </span>
+                        <span th:if="${session[SPRING_SECURITY_CONTEXT]!=null}"><li class="nav-item"><a th:href="@{/logout}" class="nav-link">تسجيل خروج</a></li></span>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <section class="welcome-content" style="">
+            <div class="container text-center">
+                <div class="welcome-text text-content text-white text-center" style="">
+                    <h1>اشترى/ بيع منزلك وانتا بتشرب قهوتك</h1>
+                    <h3 class="my-4">سهلنهالك خالص..</h3>
+
+                </div>
+                <a href="/signup" class="my-5  welcome-btn btn btn-primary text-white">تسجيل</a>
+            </div>
+        </section>
+        <section class="easy-steps " style="padding-bottom: 80px;">
+            <div class="container">
+                <div class="text-content text-center">
+                    <h2>مش عاوز تعقيد؟</h2>
+                    <h4>هنبسطهالك..</h4>
+                </div>
+                <div class="steps">
+                    <div class="row">
+                        <div class="col-md-4 col-12">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <div class="card-title text-center">
+                                        <div class="fas fa-sign-in-alt fa-2x" style="color: #f64c72">
+                                        </div>
+                                        <div class="card-text">
+                                            <h4>سجل</h4>
+                                            <p class="text-muted"> سجل على سمسرة عشان نقدر تتواصل مع الناس من جميع انحاء
+                                                الجمهورية اللى عاوزين يشترو او يبيعو </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <div class="card-title text-center">
+                                        <div class="fas fa-share fa-2x" style="color: #f64c72">
+                                        </div>
+                                        <div class="card-text">
+                                            <h4>انشر!</h4>
+                                            <p class="text-muted">انشر اعلان عن العقار اللى عاوز تشتريه او تبيعه او حتى
+                                                عاوز تأجره عشان باقى الناس تشوفه
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-md-4 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-title text-center">
+                                        <div class="fas fa-coffee fa-2x" style="color: #f64c72">
+                                        </div>
+                                        <div class="card-text">
+                                            <h4>استرخى</h4>
+                                            <p class="text-muted"> اشرب قهوتك واستريح وشوف اللى وراك وسيب الباقى علينا
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-content text-center">
+                            <h3>بس ياسيدى</h3>
+                            <h4 class="py-3">وبين الشارى والبايع,سمسرة</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="">
+            <div class="footer-links">
+
+                <div class="navbar footer-navbar" style="background-color:#3500d3; ">
+                    <ul class="nav m-auto">
+                        <li class="nav-item"><a href="#" class="nav-link fab fa-facebook fa-2x"
+                                style="color: #f64c72"></a></li>
+                        <li class="nav-item"><a href="#" class="nav-link fab fa-instagram fa-2x"
+                                style="color: #f64c72"></a></li>
+                        <li class="nav-item"><a href="#" class="nav-link fab fa-twitter fa-2x"
+                                style="color: #f64c72"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+<style>
+   
+</style>
+
+</html>
