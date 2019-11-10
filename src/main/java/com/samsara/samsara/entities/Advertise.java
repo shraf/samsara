@@ -30,6 +30,7 @@ public class Advertise {
     private String describtion;
       @ElementCollection
     private List<String>imagesurl;
+    @ManyToOne
     private User user;
 public Advertise(){
     imagesurl=new ArrayList<String>();

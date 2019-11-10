@@ -23,6 +23,7 @@ import javax.persistence.OneToMany;
  * @author eldee
  */
 @Entity
+@Table(name="users")
 public class User {
     
     
