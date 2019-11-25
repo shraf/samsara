@@ -7,10 +7,12 @@ package com.samsara.samsara.controllers;
 
 import com.samsara.samsara.Securityimp.UserPrincipal;
 import com.samsara.samsara.Securityimp.UserPrincipalService;
+import com.samsara.samsara.entities.Advertise;
 import com.samsara.samsara.entities.User;
 import com.samsara.samsara.services.UserService;
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -50,6 +52,7 @@ public class signup {
 
     @Autowired
     private UserService userserv;
+    
 
     /**
      *
@@ -93,7 +96,6 @@ public class signup {
     public boolean validSignup(@RequestParam String username, @RequestParam String password, @RequestParam String repassword, @RequestParam String email) {
         System.out.println("elvalidation:" + username + ":::" + password + "::" + repassword);
         if (userserv.findUserByUserName(username) != null || !password.equals(repassword) || password.isEmpty() || !isValid(email)) {
-            System.out.println("after valid:" + password.equals(repassword) + "::" + userserv.findUserByUserName(username));
             return false;
         }
         return true;
@@ -104,15 +106,21 @@ public class signup {
     public boolean validlogin(@RequestParam String username, @RequestParam String password) {
         User user = userserv.findUserByUserName(username);
         System.out.println(username);
+        System.out.println(password);
         if (user != null) {
-            if (user.getPassword().equals(password)) {
+            System.out.println("first ste[");
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                System.out.println("checking");
                 return true;
             }
         }
+        if(user==null)
+            System.out.println("what??");
+        System.out.println("non valid");
         return false;
     }
 
-    @GetMapping("/test")
+    @GetMapping("/test1")
     @ResponseBody
     public String test(HttpSession session) {
         session.getAttributeNames().asIterator().forEachRemaining(x -> System.out.println(x));
@@ -125,6 +133,12 @@ public class signup {
 
     public boolean isValid(String email) {
         return email.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
+    }
+    @GetMapping(value="/getadsprofile")
+    @ResponseBody
+    public List<Advertise> test(@RequestParam long id){
+        User user=userserv.findUserById(id);
+    return user.getAds();
     }
 
 }

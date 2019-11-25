@@ -5,6 +5,8 @@
  */
 package com.samsara.samsara.controllers;
 
+import com.samsara.samsara.Securityimp.UserPrincipal;
+import com.samsara.samsara.Securityimp.UserPrincipalService;
 import com.samsara.samsara.entities.Advertise;
 import com.samsara.samsara.entities.User;
 import com.samsara.samsara.repositories.AdvertiseRepository;
@@ -14,22 +16,33 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -93,7 +106,7 @@ public class AdsApi {
         /*System.out.println("files are"+request.getParameter("files"));
         System.out.println("length is"+mpf.length);*/
 
-        return "/welcome.html";
+        return "redirect:/";
     }
 
     @GetMapping("/")
@@ -119,6 +132,7 @@ public class AdsApi {
         adservice.findAllAdvertise().forEach(x -> System.out.println(x));
 
         ArrayList<Advertise> ads = (ArrayList) adservice.findAllAdvertise();
+        Collections.reverse(ads);
         ArrayList<Advertise> currentPageAds = new ArrayList<Advertise>();
 
         totalPages = ads.size() % 10 == 0 ? ads.size() / 10 : ads.size() / 10 + 1;
@@ -132,5 +146,18 @@ public class AdsApi {
 
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("ads", currentPageAds);
+    }
+     @RequestMapping(value = "/validsignups", method = RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public boolean validSignup(@RequestParam String username, @RequestParam String password, @RequestParam String repassword, @RequestParam String email) {
+        System.out.println("elvalidation:" + username + ":::" + password + "::" + repassword);
+        
+        return true;
+    }
+    @GetMapping(value="/getadsprofile")
+    @ResponseBody
+    public List<Advertise> test(@RequestParam long id){
+        User user=userservice.findUserById(id);
+    return user.getAds();
     }
 }

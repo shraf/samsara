@@ -34,30 +34,7 @@
     </head>
     <body style="font-family: 'Cairo', sans-serif;">
         <div class="container-fluid pl-0 pr-0">
-            <header>
-                <div class="fixed-top navbar navbar-expand-md header-navbar" style="">
-                    <button
-                        class="btn navbar-toggler navbar-light"
-                        data-toggle="collapse"
-                        data-target="#navcontents"
-                        type="button"
-                        >
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navcontents" style="">
-                    <ul class="navbar-nav m-auto header-ul" style="">
-                        <li class="nav-item"><a href="#" class="nav-link" th:href="@{/}">الصفحة الرئيسية </a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">من نحن</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">تواصل معنا</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">الاسألة الشائعة</a></li>
-                        <span th:if="${session[SPRING_SECURITY_CONTEXT]==null}"><li class="nav-item"><a href="/signup" class="nav-link">تسجيل</a></li>
-                            <li class="nav-item"><a href="adsviewer" class="nav-link"></a> </li>
-                        </span>
-                        <span th:if="${session[SPRING_SECURITY_CONTEXT]!=null}"><li class="nav-item"><a th:href="@{/logout}" class="nav-link">تسجيل خروج</a></li></span>
-                    </ul>
-                </div>
-                </div>
-            </header>
+            <div th:replace="header::header"></div>
             <div class="form" style="margin-top: 150px;">
                 <form class="adform" th:action="@{/ads/add}" method="post" id="ad-form" enctype="multipart/form-data">
                     <div class="form-group">
@@ -83,140 +60,147 @@
                             "
                             ></textarea>
                     </div>
-                    <div class="form-group" id="files-group">
-                        <label
-                            for="btnfiles"
-                            style="display: block; text-align: right;"
-                            class=""
-                            >ارفع صور وفيديوهات شقتك للمعاينة</label
-                        >
-                        <button
-                            name="btnfiles"
-                            class="btn btn-primary welcome-btn "
-                            type="button"
-                            onclick="uploadfile()"
-                            >
-                            اختيار الملفات
-                        </button>
-                        <span id="imagedisplay"></span>
-                        
-                    </div>
+                    <div class="row">
                     <div class="form-group">
-                        <button class="btn btn-primary welcome-btn " type="submit">
-                            اضافة اعلان
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <footer class="">
-                <div class="footer-links">
-                    <div class="navbar footer-navbar" style="background-color:#3500d3; ">
-                        <ul class="nav m-auto">
-                            <li class="nav-item">
-                                <a
-                                    href="#"
-                                    class="nav-link fab fa-facebook fa-2x"
-                                    style="color: #f64c72"
-                                    ></a>
-                            </li>
-                            <li class="nav-item">
-                                <a
-                                    href="#"
-                                    class="nav-link fab fa-instagram fa-2x"
-                                    style="color: #f64c72"
-                                    ></a>
-                            </li>
-                            <li class="nav-item">
-                                <a
-                                    href="#"
-                                    class="nav-link fab fa-twitter fa-2x"
-                                    style="color: #f64c72"
-                                    ></a>
-                            </li>
-                        </ul>
-                    </div>
+                        <div class="col-12">
+                        <label for="phone number"  style="display:block;text-align: right">هات رقمك</label>
+               
+                        <input name="phoneNumber" type="text" onpaste="return isCopyNumber(event)" onkeypress="return isNumber(event)" class="form-control">
+                        </div>
+                        </div>
+                        </div>
+                        <div class="form-group" id="files-group">
+                    <label
+                        for="btnfiles"
+                        style="display: block; text-align: right;"
+                        class=""
+                        >ارفع صور وفيديوهات شقتك للمعاينة</label
+                    >
+                    <button
+                        name="btnfiles"
+                        class="btn btn-primary welcome-btn "
+                        type="button"
+                        onclick="uploadfile()"
+                        >
+                        اختيار الملفات
+                    </button>
+                    <span id="imagedisplay"></span>
+
                 </div>
-            </footer>
+                <div class="form-group">
+                    <button class="btn btn-primary welcome-btn " type="button" onclick="validate(event)">
+                        اضافة اعلان
+                    </button>
+                </div>
+            </form>
         </div>
-    </body>
+            <div th:replace="footer::footer"></div>
+    </div>
+</body>
 
-    <script>
-        let filesnumber = 1;
-        var textnodetitle;
-        let titleErrMsg = document.querySelector("#errortitle");
-        let desErrMsg = document.querySelector("#errordes");
-        function validate(evt) {
-            let title = document.querySelector("#title").value;
-            let description = document.querySelector("#describtion").value;
-            titleErrMsg.style.color = "red";
-            desErrMsg.style.color = "red";
-            titleErrMsg.textContent = "";
-            desErrMsg.textContent = "";
-
-            if (title.length < 4) {
-                console.log(title.length);
-                titleErrMsg.textContent = "العنوان قصير جدا";
-                //  evt.preventDefault();
-            }
-
-            if (description.length < 20) {
-                desErrMsg.textContent = "الوصف قصير جدا";
-                //  evt.preventDefault();
-            }
-            if (title.length >= 4 && description.length >= 20) {
-                document.querySelector(".adform").submit();
-            }
+<script>
+    let filesnumber = 1;
+    var textnodetitle;
+    let titleErrMsg = document.querySelector("#errortitle");
+    let desErrMsg = document.querySelector("#errordes");
+    let phoneErrMsg=document.querySelector("#errorphone");
+    function validate(evt) {
+        let title = document.querySelector("#title").value;
+        let description = document.querySelector("#describtion").value;
+        let phonenumber=document.querySelector('phonenumber').value;
+        titleErrMsg.style.color = "red";
+        desErrMsg.style.color = "red";
+        phoneErrMsg.color="red";
+        phoneErrMsg.textContent="";
+        titleErrMsg.textContent = "";
+        desErrMsg.textContent = "";
+        if(phonenumber.length<11||phonenumber.length>15){
+            phoneErrmsg.textContent="رقم التليفون مش مظبوط ينجم";
+            evt.preventDefault();
+        }
+        if (title.length < 4) {
+            console.log(title.length);
+            titleErrMsg.textContent = "العنوان قصير جدا";
+            evt.preventDefault();
         }
 
-        function FileSelected(input) {
-            /*   files = document.getElementById("files").files;
-             let filesnames = "";
-             let filesarr = Array.from(files);
-             console.log(files);
-             filesarr.forEach(file => (filesnames += file.name + " "));
-             document.getElementById("fileName").textContent = filesnames;
-             console.log(e.target.result);*/
-            input = window.event;
-            let imgdisplay = document.querySelector("#imagedisplay");
-            let img = document.createElement("img");
-            let closebtn = document.createElement("button");
-            closebtn.type = "button";
-            closebtn.className = "closebtn";
-            closebtn.setAttribute("onclick", "removeImg(this)");
-            img.src = URL.createObjectURL(input.target.files[0]);
-            img.style.width = "100px";
-            img.style.height = "100px";
-            img.style.marginRight = "10px";
-            imgdisplay.appendChild(img);
-            imgdisplay.appendChild(closebtn);
-            console.log(input.target);
-            console.log(input.target.files[0]);
+        if (description.length < 20) {
+            desErrMsg.textContent = "الوصف قصير جدا";
+            //  evt.preventDefault();
         }
-        function uploadfile() {
-            let parent = document.querySelector("#files-group");
-            let element = document.createElement("input");
-            element.type = "file";
-            element.name = "files";
-            element.id = `files${filesnumber}`;
-            element.style.width = "0px";
-            element.setAttribute("onchange", "FileSelected(this)");
-            parent.appendChild(element);
-            filesnumber++;
-            element.click();
+        if (title.length >= 4&&phonenumber.length>11&&phonenumber<15    ) {
+            document.querySelector(".adform").submit();
         }
-        function removeImg(btn) {
-            console.log(event);
+    }
 
-            let imgparent = document.querySelector("#imagedisplay");
-            let fileparent = document.querySelector("#files-group");
-            console.log(event);
-            console.log(event.target);
-            console.log(event.target.previousElementSibling);
-            imgparent.removeChild(event.target.previousElementSibling);
-            console.log(document.querySelector(`#files${filesnumber}`));
-            fileparent.removeChild(document.querySelector(`#files${filesnumber}`));
-            imgparent.removeChild(btn);
-            filesnumber--;
-        }
-    </script>
+    function FileSelected(input) {
+        /*   files = document.getElementById("files").files;
+         let filesnames = "";
+         let filesarr = Array.from(files);
+         console.log(files);
+         filesarr.forEach(file => (filesnames += file.name + " "));
+         document.getElementById("fileName").textContent = filesnames;
+         console.log(e.target.result);*/
+        input = window.event;
+        let imgdisplay = document.querySelector("#imagedisplay");
+        let img = document.createElement("img");
+        let closebtn = document.createElement("button");
+        closebtn.type = "button";
+        closebtn.className = "closebtn";
+        closebtn.setAttribute("onclick", "removeImg(this)");
+        closebtn.setAttribute("name",filesnumber);
+        img.src = URL.createObjectURL(input.target.files[0]);
+        img.style.width = "100px";
+        img.style.height = "100px";
+        img.style.marginRight = "10px";
+        imgdisplay.appendChild(img);
+        imgdisplay.appendChild(closebtn);
+        console.log(input.target);
+        console.log(input.target.files[0]);
+        filesnumber++;
+    }
+    function uploadfile() {
+        let parent = document.querySelector("#files-group");
+        let element = document.createElement("input");
+        element.type = "file";
+        element.name = "files";
+        element.id = `files${filesnumber}`;
+        element.style.width = "0px";
+        element.setAttribute("onchange", "FileSelected(this)");
+        parent.appendChild(element); 
+        element.click();
+    }
+    function removeImg(btn) {
+        console.log(event);
+
+        let imgparent = document.querySelector("#imagedisplay");
+        let fileparent = document.querySelector("#files-group");
+        let filenumber=event.target.name;
+        console.log("el number is"+filenumber);
+        console.log(event);
+        console.log(event.target);
+        console.log(event.target.previousElementSibling);
+        imgparent.removeChild(event.target.previousElementSibling);
+        console.log(document.querySelector(`#files${filenumber}`));
+        console.log(`files${filenumber}`);
+        fileparent.removeChild(document.querySelector(`#files${filenumber}`));
+        imgparent.removeChild(btn);
+        filesnumber--;
+        console.log("iiii"+document.querySelector("files"));
+    }
+    function isNumber(event){
+        console.log(event);
+        let charcode=event.charCode;
+        console.log(charcode);
+        if(charcode>47&&charcode<58)
+            return true;
+        else
+            return false;
+    }
+    function isCopyNumber(event){
+        console.log(event);
+        let text= (event.originalEvent || event).clipboardData.getData('text/plain');
+        return !isNaN(text);
+    }
+</script>
 </html>

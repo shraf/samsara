@@ -6,6 +6,7 @@
 package com.samsara.samsara.controllers;
 
 import com.samsara.samsara.entities.Advertise;
+import com.samsara.samsara.entities.User;
 import com.samsara.samsara.repositories.AdvertiseRepository;
 import com.samsara.samsara.services.AdvertiseService;
 import com.samsara.samsara.services.UserService;
@@ -82,4 +83,12 @@ public class redirect {
         return"ads.html";
     }
 
+    @RequestMapping("/profile")
+    public String redirectToProfile(Model model,@RequestParam int id){
+        User user=userservice.findUserById(id);
+        model.addAttribute("profile",id);
+        model.addAttribute("userads",user.getAds());
+        return "profile.html";
+        
+    }
     }

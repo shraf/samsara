@@ -36,30 +36,8 @@
   </head>
   <body style="font-family: 'Cairo', sans-serif;">
     <div class="container-fluid pl-0 pr-0">
-      <header>
-                <div class="fixed-top navbar navbar-expand-md header-navbar" style="">
-                    <button
-                        class="btn navbar-toggler navbar-light"
-                        data-toggle="collapse"
-                        data-target="#navcontents"
-                        type="button"
-                        >
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navcontents" style="">
-                    <ul class="navbar-nav m-auto header-ul" style="">
-                        <li class="nav-item"><a href="#" class="nav-link">الصفحة الرئيسية </a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">من نحن</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">تواصل معنا</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">الاسألة الشائعة</a></li>
-                        <span th:if="${session[SPRING_SECURITY_CONTEXT]==null}"><li class="nav-item"><a href="/signup" class="nav-link">تسجيل</a></li>
-                            <li class="nav-item"><a href="adsviewer" class="nav-link"></a> </li>
-                        </span>
-                        <span th:if="${session[SPRING_SECURITY_CONTEXT]!=null}"><li class="nav-item"><a th:href="@{/logout}" class="nav-link">تسجيل خروج</a></li></span>
-                    </ul>
-                </div>
-                </div>
-            </header>
+            <div th:replace="header::header"></div>
+
 
      <div class="container-fluid">
         <div class="report">
@@ -73,6 +51,7 @@
             style="margin-top:180px;color: #f64c72; "
           >
             <h4>رقم الهاتف:</h4>
+            <span style="color:black" th:text="${currentAd.getPhoneNumber()}"></span>
             <h4 style="padding-top:50px ;">الاميل:</h4>
           </div>
           <div class="col-9">
@@ -172,35 +151,8 @@
         </div>
       </div>
 
-      <footer class="" style="margin-top: 100px;">
-        <div class="footer-links">
-          <div class="navbar footer-navbar" style="background-color:#3500d3; ">
-            <ul class="nav m-auto">
-              <li class="nav-item">
-                <a
-                  href="#"
-                  class="nav-link fab fa-facebook fa-2x"
-                  style="color: #f64c72"
-                ></a>
-              </li>
-              <li class="nav-item">
-                <a
-                  href="#"
-                  class="nav-link fab fa-instagram fa-2x"
-                  style="color: #f64c72"
-                ></a>
-              </li>
-              <li class="nav-item">
-                <a
-                  href="#"
-                  class="nav-link fab fa-twitter fa-2x"
-                  style="color: #f64c72"
-                ></a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </footer>
+              <div th:replace="footer::footer"></div>
+
     </div>
     <script th:href="@{/scripts/lightbox-plus-jquery.min.js}"></script>
     <script th:href="@{/scripts/lightbox.js}"></script>

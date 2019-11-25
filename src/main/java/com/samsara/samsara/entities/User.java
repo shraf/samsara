@@ -5,6 +5,7 @@
  */
 package com.samsara.samsara.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +25,7 @@ import javax.persistence.Table;
  * @author eldee
  */
 @Entity
-@Table(name="users")
+//@Table(name="users")
 public class User {
     
     
@@ -38,7 +39,7 @@ public class User {
     private String email;
     
     private String userName;
-    
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Advertise> ads;
     

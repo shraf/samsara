@@ -34,30 +34,7 @@
     </head>
   <body style="font-family: 'Cairo', sans-serif;">
     <div class="container-fluid pl-0 pr-0">
-      <header>
-                <div class="fixed-top navbar navbar-expand-md header-navbar" style="">
-                    <button
-                        class="btn navbar-toggler navbar-light"
-                        data-toggle="collapse"
-                        data-target="#navcontents"
-                        type="button"
-                        >
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navcontents" style="">
-                    <ul class="navbar-nav m-auto header-ul" style="">
-                        <li class="nav-item"><a href="#" class="nav-link" th:href="@{/}">الصفحة الرئيسية </a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">من نحن</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">تواصل معنا</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">الاسألة الشائعة</a></li>
-                        <span th:if="${session[SPRING_SECURITY_CONTEXT]==null}"><li class="nav-item"><a href="/signup" class="nav-link">تسجيل</a></li>
-                            <li class="nav-item"><a href="adsviewer" class="nav-link"></a> </li>
-                        </span>
-                        <span th:if="${session[SPRING_SECURITY_CONTEXT]!=null}"><li class="nav-item"><a th:href="@{/logout}" class="nav-link">تسجيل خروج</a></li></span>
-                    </ul>
-                </div>
-                </div>
-            </header>
+        <div th:replace="header::header"></div>
       <div class="row">
         <aside class="col-3 "style="margin-top:100px;">
           <div class="card">
@@ -81,14 +58,15 @@
           class="ads "
           style="position:fixed;overflow-y: scroll;height: 100%;margin-top:100px;"
         >
-          <div class="card" th:each="ad:${ads}">
+         <!-- <div class="card" th:each="ad:${ads}">-->
+              <div class="card" th:each="ad:${#numbers.sequence(ads.size()-1,0,-1)}">
             <div class="card-body">
               <h5 class="card-title">
-                  <a class="stretched-link" href="/ad" th:href="|/ad?id=${ad.id}|" th:text="${ad.title}" style="text-decoration:none; color:black;font-weight: bold"></a>
+                  <a class="stretched-link" href="/ad" th:href="|/ad?id=${ads[ad].id}|" th:text="${ads[ad].title}" style="text-decoration:none; color:black;font-weight: bold"></a>
             </h5>
-              <h6 class="card-subtitle mb-2 text-muted" th:text="${ad.user.userName}">Card subtitle</h6>
+              <h6 class="card-subtitle mb-2 text-muted" th:text="${ads[ad].user.userName}">Card subtitle</h6>
               <p class="card-text">
-                  <span th:text="${ad.describtion}"></span>
+                  <span th:text="${ads[ad].describtion}"></span>
               </p>
              
             </div>
@@ -107,6 +85,8 @@
           <li class="page-item"><a class="page-link" href="#"  th:text="Next" onclick="nextpage()">Next</a></li>
         </ul>
       </nav>
+                  <div th:replace="footer::footer"></div>
+
     </div>
   </body>
   <script>
