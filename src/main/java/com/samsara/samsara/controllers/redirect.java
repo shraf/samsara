@@ -83,12 +83,21 @@ public class redirect {
         return"ads.html";
     }
 
-    @RequestMapping("/profile")
+    /*@RequestMapping("/profile")
     public String redirectToProfile(Model model,@RequestParam int id){
         User user=userservice.findUserById(id);
         model.addAttribute("profile",id);
         model.addAttribute("userads",user.getAds());
         return "profile.html";
         
+    }*/
+    @RequestMapping("/profile")
+    public String redirectToProfile(Model model,@RequestParam String username){
+        User user=userservice.findUserByUserName(username);
+        model.addAttribute("profile",username);
+        model.addAttribute("userads",user.getAds());
+        return "profile.html";
+        
     }
     }
+

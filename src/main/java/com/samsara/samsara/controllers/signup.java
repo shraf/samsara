@@ -134,10 +134,16 @@ public class signup {
     public boolean isValid(String email) {
         return email.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
     }
-    @GetMapping(value="/getadsprofile")
+    /*@GetMapping(value="/getadsprofile")
     @ResponseBody
     public List<Advertise> test(@RequestParam long id){
         User user=userserv.findUserById(id);
+    return user.getAds();
+    }*/
+    @GetMapping(value="/getadsprofile")
+    @ResponseBody
+    public List<Advertise> test1(@RequestParam String username){
+        User user=userserv.findUserByUserName(username);
     return user.getAds();
     }
 

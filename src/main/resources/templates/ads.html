@@ -62,9 +62,9 @@
               <div class="card" th:each="ad:${#numbers.sequence(ads.size()-1,0,-1)}">
             <div class="card-body">
               <h5 class="card-title">
-                  <a class="stretched-link" href="/ad" th:href="|/ad?id=${ads[ad].id}|" th:text="${ads[ad].title}" style="text-decoration:none; color:black;font-weight: bold"></a>
+                  <a class="" href="/ad" th:href="|/ad?id=${ads[ad].id}|" th:text="${ads[ad].title}" style="text-decoration:none; color:black;font-weight: bold"></a>
             </h5>
-              <h6 class="card-subtitle mb-2 text-muted" th:text="${ads[ad].user.userName}">Card subtitle</h6>
+              <h6 class="card-subtitle mb-2 text-muted" th:text="${ads[ad].user.userName}"><a th:href="@{/profile?username=ads[ad].user.username}"></a></h6>
               <p class="card-text">
                   <span th:text="${ads[ad].describtion}"></span>
               </p>
@@ -85,7 +85,6 @@
           <li class="page-item"><a class="page-link" href="#"  th:text="Next" onclick="nextpage()">Next</a></li>
         </ul>
       </nav>
-                  <div th:replace="footer::footer"></div>
 
     </div>
   </body>

@@ -65,7 +65,7 @@
                         <div class="col-12">
                         <label for="phone number"  style="display:block;text-align: right">هات رقمك</label>
                
-                        <input name="phoneNumber" type="text" onpaste="return isCopyNumber(event)" onkeypress="return isNumber(event)" class="form-control">
+                        <input id="phonenumber" name="phoneNumber" type="text" onpaste="return isCopyNumber(event)" onkeypress="return isNumber(event)" class="form-control">
                         </div>
                         </div>
                         </div>
@@ -107,7 +107,7 @@
     function validate(evt) {
         let title = document.querySelector("#title").value;
         let description = document.querySelector("#describtion").value;
-        let phonenumber=document.querySelector('phonenumber').value;
+        let phonenumber=document.querySelector('#phonenumber').value;
         titleErrMsg.style.color = "red";
         desErrMsg.style.color = "red";
         phoneErrMsg.color="red";
