@@ -22,19 +22,10 @@ var url_string = window.location.href;
 var url = new URL(url_string);
 var id = url.searchParams.get("id");
 console.log("ahoso");
-let xhr1 = new XMLHttpRequest();
-xhr1.open("GET", "http://localhost:8080/ads/user", true);
-xhr1.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-xhr1.send();
-xhr1.onreadystatechange = function() {
-  console.log(this.responseText);
-  console.log("ahoo");
-  console.log(this);
-};
 console.log("shraf");
 function validate(evt) {
   let params = `username=${username.value}&password=${password.value}&repassword=${repassword.value}&email=${email.value}`;
-  xhr.open("POST", "http://localhost:8080/sign/validsignup", true);
+  xhr.open("POST", "./sign/validsignup", true);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.send(params);
   xhr.onreadystatechange = function() {
