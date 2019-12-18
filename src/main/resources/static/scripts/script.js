@@ -65,8 +65,10 @@ function validatelogin(evt) {
     console.log(this.responseText);
     if (this.responseText == "false") {
       evt.preventDefault();
+      console.log("a7aaaaaaaaaaaaaaaaa");
       erormsg.textContent = "اتأكد من صحة معلوماتك ينجم";
     } else if (this.responseText == "true") {
+      console.log("adfdslfdsfdlaaah");
       document.querySelector(".signin-form").submit();
     }
   };

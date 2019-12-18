@@ -32,7 +32,7 @@ import javax.persistence.PrePersist;
  * @author eldee
  */
 @Entity
-//@Table(name="users")
+@Table(name="users")
 public class User {
     
     
