@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  *
@@ -62,7 +63,7 @@ public class AdsApi {
     }
 
     @PostMapping("/add")
-    public String addAd(HttpSession session, Advertise ad, HttpServletRequest request, @RequestParam("files") MultipartFile[] files) {
+    public RedirectView  addAd(HttpSession session, Advertise ad, HttpServletRequest request, @RequestParam("files") MultipartFile[] files) {
         List<String> fileNames = new ArrayList<String>();
         User user = userservice.findUserByUserName((String) session.getAttribute("user"));
         user.addAdd(ad);
@@ -73,8 +74,8 @@ public class AdsApi {
         }
         /*System.out.println("files are"+request.getParameter("files"));
         System.out.println("length is"+mpf.length);*/
-
-        return "redirect:/";
+System.out.println("the Id of advertise is"+ad.getId());
+         return new RedirectView("/ad?id="+ad.getId());
     }
 
     private void saveAdImages(MultipartFile[] files, Advertise ad) {
