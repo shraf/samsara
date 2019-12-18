@@ -52,7 +52,7 @@
           >
             <h4>رقم الهاتف:</h4>
             <span style="color:black" th:text="${currentAd.getPhoneNumber()}"></span>
-            <h4 style="padding-top:50px ;">الاميل:</h4>
+            <h4 style="padding-top:50px ;">الاميل:<a style="text-decoration:none;color:#007bff" th:href="@{|/profile?username=${currentAd.getUser().getUserName()}|}"><span th:text="${currentAd.getUser().getUserName()}"></span></a></h4>
           </div>
           <div class="col-9">
               <section class=" justify-content-center text-center " >
@@ -112,7 +112,7 @@
                   id="disc"
                   aria-labelledby="mydisc"
                 >
-                    
+                    <input type="hidden" th:value="${currentAd.id}">
                     <span th:text="${currentAd.getDescribtion()}"></span>
                 </div>
                 <div class="tab-pane" id="images" aria-labelledby="myimage">
@@ -180,5 +180,6 @@
     $(function() {
       $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
     });
+    
   </script>
 </html>

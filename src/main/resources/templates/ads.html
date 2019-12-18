@@ -32,11 +32,11 @@
             crossorigin="anonymous"
             />
     </head>
-  <body style="font-family: 'Cairo', sans-serif;">
+  <body style="font-family: 'Cairo', sans-serif; overflow-x: hidden;">
     <div class="container-fluid pl-0 pr-0">
         <div th:replace="header::header"></div>
       <div class="row">
-        <aside class="col-3 "style="margin-top:100px;">
+        <aside class="col-md-3 col-sm-12 "style="margin-top:100px;margin-bottom:0px;">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">اضافة اعلانن</h5>
@@ -51,20 +51,20 @@
           </div>
          
         </aside>
-        <div class="main-section col-7">
+        <div class="main-section col-md-7 col-sm-12">
           
         
         <section
-          class="ads "
-          style="position:fixed;overflow-y: scroll;height: 100%;margin-top:100px;"
+          id="ads"
+          style="position:fixed;overflow-y: scroll;margin-top:100px;"
         >
          <!-- <div class="card" th:each="ad:${ads}">-->
-              <div class="card" th:each="ad:${#numbers.sequence(ads.size()-1,0,-1)}">
+              <div  class="card" th:each="ad:${#numbers.sequence(ads.size()-1,0,-1)}" >
             <div class="card-body">
               <h5 class="card-title">
-                  <a class="" href="/ad" th:href="|/ad?id=${ads[ad].id}|" th:text="${ads[ad].title}" style="text-decoration:none; color:black;font-weight: bold"></a>
+                  <a  href="/ad" th:href="|/ad?id=${ads[ad].id}|" th:text="${ads[ad].title}" style="text-decoration:none; color:black;font-weight: bold"></a>
             </h5>
-              <h6 class="card-subtitle mb-2 text-muted" th:text="${ads[ad].user.userName}"><a th:href="@{/profile?username=ads[ad].user.username}"></a></h6>
+                <h6><a style="text-decoration: none" th:text="${ads[ad].user.userName}" th:href="|/profile?username=${ads[ad].user.userName}|"></a></h6>
               <p class="card-text">
                   <span th:text="${ads[ad].describtion}"></span>
               </p>
@@ -74,7 +74,7 @@
           
         </section>
       </div>
-      <nav aria-label="Page navigation example" class="fixed-bottom" style="">
+      <nav id="pagn" aria-label="Page navigation example" class="fixed-bottom" style="position:absolute;bottom:10%">
         <ul class="pagination ">
           <li class="page-item "><a class="page-link" href="#">Previous</a></li>
           <ul class="pagination" th:each="page:${#numbers.sequence(1,totalPages)}">
@@ -87,7 +87,39 @@
       </nav>
 
     </div>
+        <footer>        <div id="footer" th:include="footer::footer" ></div></footer>
+    </div>
+      <style>
+      #ads{
+         height:80% !important;
+      }
+      #footer{
+          position: absolute;
+          bottom:0;
+          right:0;
+         height: auto !important;
+         width:100%;
+      }
+       @media only screen and (max-width: 767px) {
+           .card{
+               min-height: 0 !important; 
+               margin-top:0 !important; 
+           }
+           #ads{
+               margin-top: auto !important;
+               height:60% !important;
+               width:100%;
+           }
+           #pagn{
+               bottom:48 !important;
+           }
+           #advertise{
+           }
+       }
+
+  </style>
   </body>
+  
   <script>
       console.log("ho");
       function nextpage(){

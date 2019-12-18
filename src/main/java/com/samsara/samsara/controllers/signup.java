@@ -64,28 +64,20 @@ public class signup {
         new File(Paths.get("src\\main\\resources\\static\\images\\" + user.getUserName()).toAbsolutePath().toString()).mkdir();
         if (validSignup(user.getUserName(), user.getPassword(), repassword, user.getEmail())) {
             user.setPassword(passwordEncoder.encode(repassword));
-            System.out.println("pass hash is " + user.getPassword());
             user.setActive(1);
-
             userserv.addUser(user);
-            authenticateUserAndSetSession(user.getUserName(), repassword,request);
-
-            System.out.println("gat true");
-
-            System.out.println(user.getActive());
+            authenticateUserAndSetSession(user.getUserName(), repassword,request);            
+            new File(Paths.get("src\\main\\upload\\profilepic\\"+user.getUserName()).toAbsolutePath().toString()).mkdir();
         }
         return "redirect:/";
     }
 
     private void authenticateUserAndSetSession(String username, String password, HttpServletRequest request) {
-        System.out.println("ksom el password aho" + password);
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
-
         // generate session if one doesn't exist
         request.getSession();
         token.setDetails(new WebAuthenticationDetails(request));
         Authentication authenticatedUser = authenticationManager.authenticate(token);
-
         SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
         request.getSession().setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
         request.getSession().setAttribute("user",username);
@@ -109,6 +101,7 @@ public class signup {
         System.out.println(password);
         if (user != null) {
             System.out.println("first ste[");
+            System.out.println(user.getPassword());
             if (passwordEncoder.matches(password, user.getPassword())) {
                 System.out.println("checking");
                 return true;

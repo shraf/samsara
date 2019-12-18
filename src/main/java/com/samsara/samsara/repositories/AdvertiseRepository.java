@@ -7,7 +7,10 @@ package com.samsara.samsara.repositories;
 
 import com.samsara.samsara.entities.Advertise;
 import java.util.List;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -15,4 +18,8 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface AdvertiseRepository extends CrudRepository<Advertise,Long>{
     public List<Advertise> findAllByTitle(String title);
+        @Modifying
+    @Query(value="DELETE FROM user_ads WHERE ads_id=?",nativeQuery=true)
+        @Transactional
+    public void deleteFromuser_ads(long id);
 }

@@ -96,8 +96,17 @@ public class redirect {
         User user=userservice.findUserByUserName(username);
         model.addAttribute("profile",username);
         model.addAttribute("userads",user.getAds());
+        model.addAttribute("imagename",user.getImageUrl());
         return "profile.html";
         
+    }
+    @RequestMapping("edit")
+    public String redirectToEditPage(){
+        return "edit.html";
+    }
+    @RequestMapping("whoare")
+    public String redirectToWhoAreWePage(){
+        return"whoare.html";
     }
     }
 

@@ -8,6 +8,7 @@ package com.samsara.samsara.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +29,7 @@ public class Advertise {
     private String describtion;
       @ElementCollection
     private List<String>imagesurl;
-    @ManyToOne
+    @ManyToOne()
     @JsonBackReference
     private User user;
     private String phoneNumber;

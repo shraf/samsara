@@ -38,14 +38,20 @@
     <body style="font-family: 'Cairo', sans-serif;">
         <div class="container-fluid pl-0 pr-0">
             <div th:replace="header::header"></div>
+
             <div style="margin-top: 174px;" class="main-section">
+                <h3 th:if="${#strings.equals(param.username,session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getUsername())}" class="text-center">
+                    <a th:href="@{/edit}" style="color:#f64c72;text-decoration: none;" >
+                        تعديل
+                    </a>
+                </h3>
                 <div
                     class="text-center profile-content"
                     style="background-color: #fafbfe; padding:20px"
                     >
-                    <a href="pic.jpg">
+                    <a th:href="@{|/upload/profilepic/${profile}/${imagename}|}">
                         <img
-                            src="pic.jpg"
+                            th:src="@{|/upload/profilepic/${profile}/${imagename}|}"
                             alt=""
                             class="rounded-circle"
                             style="width: 68px;"
@@ -61,6 +67,7 @@
                         <p>
                             المدينة:السويس
                         </p>
+
                     </div>
                 </div>
 
@@ -75,9 +82,11 @@
                     >
                     <h3 class="" style="color: #f64c72; ">
                         عرض الاعلانات بتاعة الشخص دا
+
                     </h3>
                 </a>
-                <ul class="list-group" style="" >
+
+                <ul class="list-group" style="display:none" >
 
 
                 </ul>
@@ -90,6 +99,26 @@
                 overflow-y: scroll;
                 display: block !important;
                 color: #f64c72;
+            }
+            .list-group-item{
+                background-color: white !important;
+                transition:all 1s !important;
+            }
+            .list-group-item:hover{
+                background-color: #F0FFF0 !important;
+                transition:all 0.5s !important;
+            }
+
+            .adhref{
+                text-decoration: none !important;
+                color: black !important;
+                transition: all 0.5s !important;
+            }
+            .adhref:hover{
+                font-size: 25px !important;
+                transform: translate(5,0);
+                transition:all 0.5s !important;
+
             }
         </style>
         <script>
@@ -105,33 +134,110 @@
              console.log("g");
              }
              }*/
+
             let list = document.querySelector(".list-group");
             var url_string = window.location.href
             var url = new URL(url_string);
-            var id = url.searchParams.get("id");
+            var username = url.searchParams.get("username");
             console.log("ahoso");
             let xhr = new XMLHttpRequest();
-            let ads;
-            xhr.open("GET", "./sign/getadsprofile?id=" + id, true);
+            var ads;
+            let xhr2=new XMLHttpRequest();
+            var boolean;
+    xhr2.open("GET","./users/isSameProfile?username="+username);
+            xhr2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr2.send();
+            xhr2.onload=()=>{
+                console.log(xhr2);
+                if(xhr2.responseText==="true")
+                    boolean=true;
+                else
+                    boolean=false;
+                            console.log(boolean);
+
+            }
+            
+            
+            xhr.open("GET", "./sign/getadsprofile?username=" + username, true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.send();
             xhr.onreadystatechange = function () {
-                ads = JSON.parse(this.response);
+                /*     console.log(ads);
+                 console.log("ahoo");
+                 console.log(this);*/
+            }
+            xhr.onload = () => addAds();
+            function addAds() {
+                console.log("loaded success");
+                console.log(xhr);
+                ads = JSON.parse(xhr.response);
                 console.log(ads);
-                console.log("ahoo");
-                console.log(this);
+                ads.forEach(x => {
+                    let li = document.createElement("li");
+                    let href = document.createElement("a");
+                    if(boolean){
+                        console.log(boolean);
+                    let deletebtn = createDeletebtn(x.id);
+                    li.appendChild(deletebtn);
+                }
+                    li.classList.add("list-group-item");
+
+                    href.appendChild(document.createTextNode(x.title));
+                    href.href = "/ad?id=" + x.id;
+                    //  href.classList.add("stretched-link");
+                    href.classList.add("adhref");
+
+                    li.appendChild(href)
+                    list.appendChild(li);
+                });
+            }
+            function createDeletebtn(id) {
+                let closebtn = document.createElement('button');
+                closebtn.classList.add("fas");
+                closebtn.classList.add("fa-times");
+                closebtn.style.color = "#f64c72";
+                closebtn.style.backgroundColor = "Transparent";
+                closebtn.style.border = "none";
+                closebtn.addEventListener("click", () => deleteAd(id, closebtn));
+                return closebtn;
+            }
+            function deleteAd(id, btn) {
+                console.log("this");
+                let xhr1 = new XMLHttpRequest();
+                xhr1.onload = () => removeAd(btn);
+                xhr1.open("DELETE", "./ad/deletead", true);
+                xhr1.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr1.send(`id=${id}`);
+
+
+            }
+            function removeAd(btn) {
+
+                console.log(btn);
+                console.log(btn.parentNode);
+                let li = btn.parentNode;
+                li.parentNode.removeChild(li);
             }
             function display_toggle() {
-                ads.forEach(x =>{
-                    
-                        let li = document.createElement("li");
-                        let href = document.createElement("a");
-                        href.appendChild(document.createTextNode(x.title));
-                        href.href="/ad?id="+x.id;
-                        
-                        li.appendChild(href)
-                        list.appendChild(li);
-                    });
+                /*ads.forEach(x =>{
+                 
+                 let li = document.createElement("li");
+                 let href = document.createElement("a");
+                 
+                 li.classList.add("list-group-item");
+                 
+                 href.appendChild(document.createTextNode(x.title));
+                 href.href="/ad?id="+x.id;
+                 href.classList.add("stretched-link");
+                 href.classList.add("adhref");
+                 
+                 li.appendChild(href)
+                 list.appendChild(li);
+                 });*/
+                if (list.classList.contains("show-list"))
+                    list.classList.remove("show-list")
+                else
+                    list.classList.add("show-list");
             }
 
         </script>

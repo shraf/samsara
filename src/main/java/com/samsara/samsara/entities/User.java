@@ -6,10 +6,17 @@
 package com.samsara.samsara.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import java.io.Serializable;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -18,14 +25,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.PrePersist;
 
 /**
  *
  * @author eldee
  */
 @Entity
-@Table(name="users")
+//@Table(name="users")
 public class User {
     
     
@@ -40,8 +47,10 @@ public class User {
     
     private String userName;
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Advertise> ads;
+    
+    private String ImageUrl;
     
     private int active;
 
@@ -148,6 +157,14 @@ public class User {
         return hash;
     }
 
+    public String getImageUrl() {
+        return ImageUrl;
+    }
+
+    public void setImageUrl(String ImageUrl) {
+        this.ImageUrl = ImageUrl;
+    }
+
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -161,6 +178,17 @@ public class User {
         return true;
     }
 
+    @PrePersist
+    public void checkProfilepic(){
+         ImageUrl="\\blankhead.jpg";
+         try(InputStream in=new URL("https://independentsector.org/wp-content/uploads/2016/12/blankhead.jpg").openStream()){
+             Files.copy(in,Paths.get("src\\main\\upload\\profilepic\\"+this.userName+ImageUrl));
+         } catch (MalformedURLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     @Override
     public String toString() {
         return "com.samsara.samsara.entities.User[ id=" + id + " ]";

@@ -5,8 +5,6 @@
  */
 package com.samsara.samsara.controllers;
 
-import com.samsara.samsara.Securityimp.UserPrincipal;
-import com.samsara.samsara.Securityimp.UserPrincipalService;
 import com.samsara.samsara.entities.Advertise;
 import com.samsara.samsara.entities.User;
 import com.samsara.samsara.repositories.AdvertiseRepository;
@@ -18,40 +16,26 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
-import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
  * @author eldee
  */
-@Controller
+
+@RestController
 @RequestMapping("/ads")
 public class AdsApi {
 
@@ -80,33 +64,34 @@ public class AdsApi {
     @PostMapping("/add")
     public String addAd(HttpSession session, Advertise ad, HttpServletRequest request, @RequestParam("files") MultipartFile[] files) {
         List<String> fileNames = new ArrayList<String>();
-        System.out.println("files size:" + files.length);
-        System.out.println("shraf geh");
         User user = userservice.findUserByUserName((String) session.getAttribute("user"));
         user.addAdd(ad);
         ad.setUser(user);
         ad = adservice.saveAdvertise(ad);
         if (files != null && files.length > 0) {
-            for (MultipartFile mpf : files) {
-                System.out.println(mpf.getOriginalFilename());
-                String filename = mpf.getOriginalFilename();
-                new File(Paths.get("src\\main\\upload\\images\\" + ad.getId()).toAbsolutePath().toString()).mkdir();
-                File file = new File(Paths.get("src\\main\\upload\\images\\" + ad.getId()).toAbsolutePath().toString(), filename);
-
-                try {
-                    mpf.transferTo(file);
-                    ad.addImage(filename);
-                    adservice.updateAdvertise(ad);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("file:" + mpf.getOriginalFilename());
-            }
+            saveAdImages(files, ad);
         }
         /*System.out.println("files are"+request.getParameter("files"));
         System.out.println("length is"+mpf.length);*/
 
         return "redirect:/";
+    }
+
+    private void saveAdImages(MultipartFile[] files, Advertise ad) {
+        for (MultipartFile mpf : files) {
+            try {
+                String filename = mpf.getOriginalFilename();
+                new File(Paths.get("src\\main\\upload\\images\\" + ad.getId()).toAbsolutePath().toString()).mkdir();
+                File file = new File(Paths.get("src\\main\\upload\\images\\" + ad.getId()).toAbsolutePath().toString(), filename);
+
+                mpf.transferTo(file);
+                ad.addImage(filename);
+                adservice.updateAdvertise(ad);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("file:" + mpf.getOriginalFilename());
+        }
     }
 
     @GetMapping("/")
@@ -115,20 +100,19 @@ public class AdsApi {
     }
 
     @DeleteMapping("/deletead")
-    public void deleteAd(@RequestParam long id) {
-        Advertise ad = (Advertise) adrepo.findById(id).orElse(null);
+    public String deleteAd(@RequestParam long id) {
+        System.out.println("deleting");
+        Advertise ad = adservice.findAdvertiseById(id);
         if (ad != null) {
-            adrepo.delete(ad);
+            adservice.deleteAdvertise(ad);
+            return"advertise has been deleted";
         }
+        return "advertise doesn't exist";
+        
     }
 
     public void setPagintation(Model model, int pageNumber) {
-
         int totalPages;
-        System.out.println("ahoo");
-        adrepo.findAll().forEach(x -> System.out.println(x));
-
-        System.out.println("ahoo");
         adservice.findAllAdvertise().forEach(x -> System.out.println(x));
 
         ArrayList<Advertise> ads = (ArrayList) adservice.findAllAdvertise();
@@ -147,17 +131,14 @@ public class AdsApi {
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("ads", currentPageAds);
     }
-     @RequestMapping(value = "/validsignups", method = RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public boolean validSignup(@RequestParam String username, @RequestParam String password, @RequestParam String repassword, @RequestParam String email) {
-        System.out.println("elvalidation:" + username + ":::" + password + "::" + repassword);
-        
-        return true;
+
+  
+
+    @GetMapping(value = "/getadsprofile")
+    public List<Advertise> test(@RequestParam long id) {
+        User user = userservice.findUserById(id);
+        return user.getAds();
     }
-    @GetMapping(value="/getadsprofile")
-    @ResponseBody
-    public List<Advertise> test(@RequestParam long id){
-        User user=userservice.findUserById(id);
-    return user.getAds();
-    }
+ 
+
 }
