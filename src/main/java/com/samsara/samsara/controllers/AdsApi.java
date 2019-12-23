@@ -82,8 +82,10 @@ System.out.println("the Id of advertise is"+ad.getId());
         for (MultipartFile mpf : files) {
             try {
                 String filename = mpf.getOriginalFilename();
-                new File(Paths.get("src\\main\\upload\\images\\" + ad.getId()).toAbsolutePath().toString()).mkdir();
-                File file = new File(Paths.get("src\\main\\upload\\images\\" + ad.getId()).toAbsolutePath().toString(), filename);
+                new File((Paths.get("src\\main\\upload\\images\\" + ad.getId()).toAbsolutePath().toString()).replace("\\","/")).mkdir();
+                File file = new File((Paths.get("src\\main\\upload\\images\\" + ad.getId()).toAbsolutePath().toString()).replace("\\","/"), filename);
+                 
+System.out.println(file.getAbsoluteFile());
 
                 mpf.transferTo(file);
                 ad.addImage(filename);
