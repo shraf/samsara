@@ -14,7 +14,10 @@ public class AdditionalResourceWebConfiguration implements WebMvcConfigurer {
 
   @Override
   public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-      System.out.println(System.getProperty("user.dir"));
-    registry.addResourceHandler("/upload/**").addResourceLocations("file:///C:/Users/eldee/Documents/NetBeansProjects/spring/spring/brokerage/src/main/upload/");
+      String userdir="file:///"+System.getProperty("user.dir");
+      System.out.println("dir is"+System.getProperty("user.dir"));
+      userdir=userdir.replace("\\","/");
+      System.out.println(userdir);
+    registry.addResourceHandler("/upload/**").addResourceLocations(userdir+("/src/main/upload/"));
   }
 }
