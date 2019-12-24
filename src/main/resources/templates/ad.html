@@ -193,6 +193,10 @@
                 if(xhr.responseText==="advertise has been deleted")
                     window.location.href="/";
             };
+            xhr.onreadystatechange=(x)=>{
+              console.log(xhr);
+              console.log(x);
+            }
         }
 
     </script>
