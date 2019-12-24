@@ -25,7 +25,7 @@ public class Test {
  @Autowired
  AdvertiseService adservice;
 
-    @PostMapping("/deletead")
+    @DeleteMapping("/deletead")
         public String deleteAd(@RequestParam long id) {
         System.out.println("deleting");
         Advertise ad = adservice.findAdvertiseById(id);
