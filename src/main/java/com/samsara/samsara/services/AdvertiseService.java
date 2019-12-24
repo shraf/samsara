@@ -9,6 +9,9 @@ import com.samsara.samsara.entities.Advertise;
 import com.samsara.samsara.repositories.AdvertiseRepository;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,38 +21,43 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AdvertiseService {
-    
-   private AdvertiseRepository advertiserepo;
-   
-   @Autowired
-   public AdvertiseService(AdvertiseRepository advertiserepo){
-       this.advertiserepo=advertiserepo;
-   }
-   
-   public List<Advertise> findAllAdvertise(){
-       List<Advertise> ads=new ArrayList();
-       advertiserepo.findAll().forEach(x->ads.add(x));
-       System.out.println(ads.size());
-       return ads;
-   }
-   
-   public Advertise findAdvertiseById(long id){
-       return advertiserepo.findById(id).orElse(null);
-   }
-  
-   public List<Advertise> findAdvertiseByTitle(String title){
-       return advertiserepo.findAllByTitle(title);
-   }
-   
-   public Advertise saveAdvertise(Advertise advertise){
-      return advertiserepo.save(advertise);
-   }
-   
-   public void updateAdvertise(Advertise advertise){
-       advertiserepo.save(advertise);
-   }
-   
-   public void deleteAdvertise(Advertise Advertise){
-       advertiserepo.delete(Advertise);
-   }
+
+    @PersistenceContext
+    EntityManager em;
+
+    private AdvertiseRepository advertiserepo;
+
+    @Autowired
+    public AdvertiseService(AdvertiseRepository advertiserepo) {
+        this.advertiserepo = advertiserepo;
+    }
+
+    public List<Advertise> findAllAdvertise() {
+        List<Advertise> ads = new ArrayList();
+        advertiserepo.findAll().forEach(x -> ads.add(x));
+        System.out.println(ads.size());
+        return ads;
+    }
+
+    public Advertise findAdvertiseById(long id) {
+        return advertiserepo.findById(id).orElse(null);
+    }
+
+    public List<Advertise> findAdvertiseByTitle(String title) {
+        return advertiserepo.findAllByTitle(title);
+    }
+
+    public Advertise saveAdvertise(Advertise advertise) {
+        return advertiserepo.save(advertise);
+    }
+
+    public void updateAdvertise(Advertise advertise) {
+        advertiserepo.save(advertise);
+    }
+
+    public void deleteAdvertise(Advertise Advertise) {
+
+        advertiserepo.deleteFromuser_ads(Advertise.getId());
+        advertiserepo.delete(Advertise);
+    }
 }
