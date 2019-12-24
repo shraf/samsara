@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 /**
  *
@@ -23,7 +25,7 @@ public class Test {
  @Autowired
  AdvertiseService adservice;
 
-    @DeleteMapping("/deletead")
+    @PostMapping("/deletead")
         public String deleteAd(@RequestParam long id) {
         System.out.println("deleting");
         Advertise ad = adservice.findAdvertiseById(id);
