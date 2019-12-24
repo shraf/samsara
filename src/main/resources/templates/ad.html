@@ -1,8 +1,8 @@
 <html xmlns:th="https://thymeleaf.org">
     <head>
         <meta charset="utf-8" />
-        <meta th:name="${_csrf}" th:content="${_csrf.token}"/>
-        <meta th:name="${_csrf_header}" th:content="${_csrf.headerName}"/>
+        <meta th:name="_csrf" th:content="${_csrf.token}"/>
+        <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
         <link th:href="@{/styles/style.css}" rel="stylesheet" />    <script
             src="https://kit.fontawesome.com/3959db2254.js"
             crossorigin="anonymous"
@@ -176,8 +176,10 @@
         }
     </style>
     <script>
-        const header=document.querySelector('meta[name="_csrf_header"]');
-        const token=document.querySelector('meta[name="_csrf"]');
+        const token = document.querySelector('meta[name="_csrf"]');
+        const header = document.querySelector('meta[name="_csrf_header"]');
+        console.log(header);
+        console.log(token);
         $(".dropdown-menu a").click(function () {
             $("#navbarDropdown").text($(this).text());
         });
@@ -185,22 +187,33 @@
             $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
         });
         function deletead(e) {
-            e.preventDefault();
-            console.log(e);
-            const xhr = new XMLHttpRequest();
-            xhr.open("DELETE", "./ad/deletead", true);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.setRequestHeader(header.content,token.content);
-            xhr.send(`id=${document.querySelector('#id').value}`);
-            xhr.onload = () => {
-                console.log(xhr);
-                if(xhr.responseText==="advertise has been deleted")
-                    window.location.href="/";
-            };
-            xhr.onreadystatechange=(x)=>{
-              console.log(xhr);
-              console.log(x)
-            }
+                e.preventDefault();
+           console.log(e);
+             const xhr = new XMLHttpRequest();
+             xhr.open("DELETE", "./ad/deletead", true);
+             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+             xhr.setRequestHeader(header.content,token.content);
+             xhr.send(`id=${document.querySelector('#id').value}`);
+             xhr.onload = () => {
+             console.log(xhr);
+             if (xhr.responseText === "advertise has been deleted")
+             window.location.href = "/";
+             };
+          /*  $(function () {
+                var token = $("input[name='_csrf']").val();
+                var header = "X-CSRF-TOKEN";
+                $(document).ajaxSend(function (e, xhr, options) {
+                    xhr.setRequestHeader(header, token);
+                });
+            });
+
+            $.ajax({
+                url: "./ad/deletead",
+                type: "POST",
+                success: function (response) {
+                    alert(response);
+                }
+            });*/
         }
 
     </script>
