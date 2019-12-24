@@ -64,7 +64,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .successHandler(onsuccess)
                 .permitAll()
                 .and()    .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/sign-in");
-                http.csrf().disable();
+              //  http.csrf().disable();
                 /*.and()
                 .rememberMe().tokenValiditySeconds(2592000).key("mySecret!").rememberMeParameter("checkRememberMe")*/;
     }

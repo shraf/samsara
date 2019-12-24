@@ -1,7 +1,8 @@
 <html xmlns:th="https://thymeleaf.org">
     <head>
         <meta charset="utf-8" />
-
+        <meta th:name="${_csrf}" th:content="${_csrf.token}"/>
+        <meta th:name="${_csrf_header}" th:content="${_csrf.headerName}"/>
         <link th:href="@{/styles/style.css}" rel="stylesheet" />    <script
             src="https://kit.fontawesome.com/3959db2254.js"
             crossorigin="anonymous"
@@ -175,6 +176,8 @@
         }
     </style>
     <script>
+        const header=document.querySelector('meta[name="_csrf_header"]');
+        const token=document.querySelector('meta[name="_csrf"]');
         $(".dropdown-menu a").click(function () {
             $("#navbarDropdown").text($(this).text());
         });
@@ -187,6 +190,7 @@
             const xhr = new XMLHttpRequest();
             xhr.open("DELETE", "./ad/deletead", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.setRequestHeader(header,token);
             xhr.send(`id=${document.querySelector('#id').value}`);
             xhr.onload = () => {
                 console.log(xhr);
