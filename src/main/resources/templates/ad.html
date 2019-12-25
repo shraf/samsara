@@ -192,7 +192,7 @@
              xhr.open("DELETE", "./ad/deletead", true);
              xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
              xhr.setRequestHeader("X-CSRF-TOKEN",token.content);
-             xhr.setRequestHeader("Access-Control-Allow-Methods","POST,GET,PUT,DELETE");
+           //  xhr.setRequestHeader("Access-Control-Allow-Methods","POST,GET,PUT,DELETE");
              xhr.send(`id=${document.querySelector('#id').value}`);
              xhr.onload = () => {
              console.log(xhr);
