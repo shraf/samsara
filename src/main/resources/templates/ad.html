@@ -45,8 +45,13 @@
                     <h2 style="margin-top: 130px; " class="text-center">
                         <a href="#" style="text-decoration: none;">الابلاغ عن الاعلان </a>
                     </h2>
-                    <form onsubmit="deletead(event)" th:method="delete" action="/aaad/deletead" class="text-center" th:if="${#strings.equals(currentAd.getUser().getUserName(),session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getUsername())}" > <input style="font-size:20px" type="submit" class="welcome-btn btn btn-primary" value="حذف الاعلان"> <input name="id" id="id" type="hidden" th:value="${currentAd.getId()}"></form>
-                </div>
+                    <!-- <form onsubmit="deletead(event)" th:method="delete" action="/aaad/deletead" class="text-center" th:if="${#strings.equals(currentAd.getUser().getUserName(),session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getUsername())}" > 
+                      -->
+                     <div th:if="${#strings.equals(currentAd.getUser().getUserName(),session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getUsername())}" > 
+                        <input style="font-size:20px" type="button" class="welcome-btn btn btn-primary" value="حذف الاعلان" onclick="deletead(event)">
+                      
+                      <input name="id" id="id" type="hidden" th:value="${currentAd.getId()}"></div>
+                </div>>
                 <div class="row">
                     <div
                         class="col-3 border-right p-5"
@@ -199,6 +204,9 @@
              if (xhr.responseText === "advertise has been deleted")
              window.location.href = "/";
              };
+            xhr.onreadystatechange=function(){
+              console.log(this);
+            }
           /*  $(function () {
                 var token = $("input[name='_csrf']").val();
                 var header = "X-CSRF-TOKEN";
