@@ -56,14 +56,14 @@
             class="text-center"
             th:if="${#strings.equals(currentAd.getUser().getUserName(),session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getUsername())}"
           >
-            <input
+            <button
               style="font-size:20px"
               type="button"
               class="welcome-btn btn btn-primary"
-              value="حذف الاعلان"
               onclick="deletead(event)"
-            />
-
+            >
+              حذف الاعلان
+            </button>
             <input
               name="id"
               id="id"
