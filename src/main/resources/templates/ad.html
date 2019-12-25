@@ -45,23 +45,22 @@
           <h2 style="margin-top: 130px; " class="text-center">
             <a href="#" style="text-decoration: none;">الابلاغ عن الاعلان </a>
           </h2>
-          <!--   <form
-            onsubmit="deletead(event)"
+          <form
+            onsubmit="return false;deletead(event)"
             th:method="delete"
             action="/aaad/deletead"
             class="text-center"
             th:if="${#strings.equals(currentAd.getUser().getUserName(),session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getUsername())}"
-          > -->
-          <div
+          >
+            <!-- <div
             class="text-center"
             th:if="${#strings.equals(currentAd.getUser().getUserName(),session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getUsername())}"
-          >
+          >-->
             <input
               style="font-size:20px"
-              type="button"
+              type="submit"
               class="welcome-btn btn btn-primary"
               value="حذف الاعلان"
-              onclick="deletead(event)"
             />
 
             <input
@@ -70,7 +69,7 @@
               type="hidden"
               th:value="${currentAd.getId()}"
             />
-          </div>
+          </form>
         </div>
         <div class="row">
           <div
