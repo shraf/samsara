@@ -55,6 +55,7 @@ function validateEmail(email) {
   return re.test(email);
 }
 function validatelogin(evt) {
+  evt.preventDefault();
   console.log("bdana");
   let params = `username=${username.value}&password=${password.value}`;
   xhr.open("POST", "./sign/validlogin", true);
