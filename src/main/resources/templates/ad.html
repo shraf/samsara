@@ -53,6 +53,7 @@
             th:if="${#strings.equals(currentAd.getUser().getUserName(),session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getUsername())}"
           > -->
           <div
+            class="text-center"
             th:if="${#strings.equals(currentAd.getUser().getUserName(),session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getUsername())}"
           >
             <input
