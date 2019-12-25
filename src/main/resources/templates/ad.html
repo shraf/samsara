@@ -238,9 +238,10 @@
       $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
     });
     function deletead(e) {
+      e.preventDefault();
       console.log(e);
       const xhr = new XMLHttpRequest();
-      xhr.open("DELETE", "./ad/deletead", true);
+      xhr.open("DELETE", "./ads/deletead", true);
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhr.setRequestHeader(header.content, token.content);
       xhr.send(`id=${document.querySelector("#id").value}`);
