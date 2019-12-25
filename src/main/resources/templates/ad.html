@@ -60,7 +60,7 @@
               style="font-size:20px"
               type="button"
               class="welcome-btn btn btn-primary"
-              onclick="deletead(event)"
+              onclick="deletead()"
             >
               حذف الاعلان
             </button>
@@ -237,8 +237,7 @@
     $(function() {
       $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
     });
-    function deletead(e) {
-      console.log(e);
+    function deletead() {
       const xhr = new XMLHttpRequest();
       xhr.open("DELETE", "./ad/deletead", true);
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
