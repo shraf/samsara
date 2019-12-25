@@ -72,5 +72,4 @@ function validatelogin(evt) {
       document.querySelector(".signin-form").submit();
     }
   };
-  return false;
 }
