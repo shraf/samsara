@@ -40,8 +40,7 @@
 
   <body style="font-family: 'Cairo', sans-serif;">
     <div class="container-fluid pl-0 pr-0">
-              <div th:replace="header::header"></div>
-
+      <div th:replace="header::header"></div>
 
       <div
         class="sign-form container"
@@ -53,6 +52,7 @@
           class="signup-form border-bottom pb-5"
           method="post"
           action="/sign/register"
+          onsubmit="validate(event)"
         >
           <div class="form-group row">
             <div class="col-md-6 col-12">
@@ -120,15 +120,12 @@
             </div>
           </div>
           <div class="form-group">
-            <button
-              type="button"
+            <input
+              type="submit"
               class="welcome-btn btn btn-primary text-white text-center"
               value="تسجيل "
               id="btnsubmit"
-              onclick="validate(event)"
-            >
-              تسجيل
-            </button>
+            />
           </div>
         </form>
         <h3 class="text-center m-5" style="padding-bottom: 50px;">
@@ -136,8 +133,7 @@
         </h3>
       </div>
 
-              <div th:replace="footer::footer"></div>
-
+      <div th:replace="footer::footer"></div>
     </div>
     <script src="/scripts/script.js"></script>
   </body>

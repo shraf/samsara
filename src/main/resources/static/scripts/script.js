@@ -24,11 +24,12 @@ var id = url.searchParams.get("id");
 console.log("ahoso");
 console.log("shraf");
 function validate(evt) {
+  evt.preventDefault();
   let params = `username=${username.value}&password=${password.value}&repassword=${repassword.value}&email=${email.value}`;
   xhr.open("POST", "./sign/validsignup", true);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.send(params);
-  xhr.onreadystatechange = function() {
+  xhr.onload = function() {
     console.log(params);
     console.log(this.responseText);
     console.log("ahoo");
