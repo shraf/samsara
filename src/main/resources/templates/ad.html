@@ -45,18 +45,22 @@
           <h2 style="margin-top: 130px; " class="text-center">
             <a href="#" style="text-decoration: none;">الابلاغ عن الاعلان </a>
           </h2>
-          <form
+          <!--   <form
             onsubmit="deletead(event)"
             th:method="delete"
             action="/aaad/deletead"
             class="text-center"
             th:if="${#strings.equals(currentAd.getUser().getUserName(),session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getUsername())}"
+          > -->
+          <div
+            th:if="${#strings.equals(currentAd.getUser().getUserName(),session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getUsername())}"
           >
             <input
               style="font-size:20px"
-              type="submit"
+              type="button"
               class="welcome-btn btn btn-primary"
               value="حذف الاعلان"
+              onclick="deletead(event)"
             />
 
             <input
@@ -65,7 +69,7 @@
               type="hidden"
               th:value="${currentAd.getId()}"
             />
-          </form>
+          </div>
         </div>
         <div class="row">
           <div
@@ -233,7 +237,6 @@
       $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
     });
     function deletead(e) {
-      e.preventDefault();
       console.log(e);
       const xhr = new XMLHttpRequest();
       xhr.open("DELETE", "./ad/deletead", true);
