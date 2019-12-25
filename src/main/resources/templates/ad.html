@@ -249,7 +249,7 @@
         if (xhr.responseText === "advertise has been deleted")
           window.location.href = "/";
       };
-      xhr.onreadystatechange = function() {
+      xhr.onerror = function() {
         console.log(this);
       };
       /*  $(function () {
