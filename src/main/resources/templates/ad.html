@@ -236,7 +236,7 @@
     $(function() {
       $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
     });
-    document.querySelector("#form").onsubmit = function(e) {
+    document.querySelector("#form").submit(function(e) {
       e.preventDefault();
       console.log(e);
       const xhr = new XMLHttpRequest();
@@ -251,7 +251,7 @@
       };
       xhr.onreadystatechange = function() {
         console.log(this);
-      };
+      });
       /*  $(function () {
                 var token = $("input[name='_csrf']").val();
                 var header = "X-CSRF-TOKEN";
