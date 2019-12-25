@@ -60,11 +60,10 @@ function validatelogin(evt) {
   xhr.open("POST", "./sign/validlogin", true);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.send(params);
-  xhr.onreadystatechange = function() {
+  xhr.onload = function() {
     console.log(params);
     console.log(this.responseText);
     if (this.responseText == "false") {
-      evt.preventDefault();
       console.log("a7aaaaaaaaaaaaaaaaa");
       erormsg.textContent = "اتأكد من صحة معلوماتك ينجم";
     } else if (this.responseText == "true") {
@@ -72,4 +71,5 @@ function validatelogin(evt) {
       document.querySelector(".signin-form").submit();
     }
   };
+  return false;
 }
