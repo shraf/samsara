@@ -45,19 +45,25 @@
           <h2 style="margin-top: 130px; " class="text-center">
             <a href="#" style="text-decoration: none;">الابلاغ عن الاعلان </a>
           </h2>
+          <!--   <form
+            onsubmit="deletead(event)"
+            th:method="delete"
+            action="/aaad/deletead"
+            class="text-center"
+            th:if="${#strings.equals(currentAd.getUser().getUserName(),session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getUsername())}"
+          > -->
           <div
             class="text-center"
             th:if="${#strings.equals(currentAd.getUser().getUserName(),session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getUsername())}"
           >
-            <button
+            <input
               style="font-size:20px"
               type="button"
-              onclick="deletead(event)"
               class="welcome-btn btn btn-primary"
               value="حذف الاعلان"
-            >
-              حذف الاعلان
-            </button>
+              onclick="deletead(event)"
+            />
+
             <input
               name="id"
               id="id"
@@ -236,13 +242,15 @@
       const xhr = new XMLHttpRequest();
       xhr.open("DELETE", "./ad/deletead", true);
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhr.setRequestHeader("X-CSRF-TOKEN", token.content);
-      //  xhr.setRequestHeader("Access-Control-Allow-Methods","POST,GET,PUT,DELETE");
+      xhr.setRequestHeader(header.content, token.content);
       xhr.send(`id=${document.querySelector("#id").value}`);
       xhr.onload = () => {
         console.log(xhr);
         if (xhr.responseText === "advertise has been deleted")
           window.location.href = "/";
+      };
+      xhr.onreadystatechange = function() {
+        console.log(this);
       };
       /*  $(function () {
                 var token = $("input[name='_csrf']").val();
