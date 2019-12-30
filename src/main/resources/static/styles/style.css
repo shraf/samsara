@@ -19,9 +19,10 @@ header {
   border-radius: 10px;
 }
 .nav-link {
-  color: #fff;
+  color: #000;
   margin-left: 80px;
   transition: all 0.4s;
+  font-weight:550;
 }
 
 .nav-link:hover {

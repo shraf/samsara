@@ -55,6 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/validsignup").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/").permitAll()
+                .antMatchers("/whoare").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/sign-in")

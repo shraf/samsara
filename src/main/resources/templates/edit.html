@@ -1,141 +1,191 @@
 <html xmlns:th="https://thymeleaf.org">
-    <head>
-        <meta charset="utf-8" />
-        <link
-            href="../static/styles/style.css"
-            rel="stylesheet"
-            th:href="@{/styles/style.css}"
-            />
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link
+      href="../static/styles/style.css"
+      rel="stylesheet"
+      th:href="@{/styles/style.css}"
+    />
 
-        <script
-            src="https://kit.fontawesome.com/3959db2254.js"
-            crossorigin="anonymous"
-        ></script>
-        <link
-            href="https://fonts.googleapis.com/css?family=Cairo:200,300,400,600,700,900&amp;subset=arabic,latin-ext"
-            rel="stylesheet"
-            />
-        <script
-            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"
-        ></script>
-        <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-            crossorigin="anonymous"
-            />
-    </head>
-    <body>
+    <script
+      src="https://kit.fontawesome.com/3959db2254.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Cairo:200,300,400,600,700,900&amp;subset=arabic,latin-ext"
+      rel="stylesheet"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container-fluid pl-0 pr-0">
+      <div th:replace="header :: header"></div>
 
-        <div class="container-fluid pl-0 pr-0">
-            <div th:replace="header :: header"></div>
-
-            <div style="margin-top: 174px;" class="main-section">
-                <div
-                    class="text-center profile-content"
-                    style="background-color: #fafbfe; padding:20px"
-                    >
-                    <div style="border-bottom: 1px solid #000; padding-bottom:50px;" class="text-center profile-photo">
-                        <form method="post" th:action="@{/users/upload}" enctype="multipart/form-data" id="imageform">
-                        <h3>
-                            <a style="color: #f64c72;text-decoration: none;" href="#" onclick="uploadfile(this)" >
-                                تغيير الصورة الشخصية
-                            </a>
-                            <input id="file" name="file" type="file" style="display:none;" onchange="fileSelected()">
-                        </h3>
-                            <input type="submit" value="تأكيد التغيير">
-                        </form>
-                        <a th:href="@{|/upload/profilepic/${session[user]}/${session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getImageUrl()}|}">
-                            <img
-                                th:src="@{|/upload/profilepic/${session[user]}/${session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getImageUrl()}|}"
-                                alt=""
-                                class="rounded-circle"
-                                style="width: 68px;"
-                                id="profilepic"
-                                />
-                        </a>
-                    </div>
-                    <div
-                        class="text-content p-0 my-5"
-                        style="color: #f64c72; font-size: 22px;"
-                        >
-                        <h3>تغيير كلمة السر</h3>
-                        <form action="/user/updatePassword" class="" id="passwordform">
-                            <div class="form-group">
-                                <p style="color:red" id="passerr"></p>
-                                <label for="oldpassword">كلمة السر القديمة</label>
-                                <input type="password" id="oldpassword" name="oldpassword"  class="form-control">
-                                <label for="newpassword">كلمة السر الجديدة</label>
-                                <input type="password" id="newpassword" name="newpassword"  class="form-control">
-                                <label for="repeatpassord">اكد ع كلمة السر الجديدة</label>
-                                <input type="password" id="repeatpassword" name="repeatpassword" class="form-control">
-                            </div>
-                            <input type="submit" value="تغيير" class="btn btn-primary welcome-btn">
-                        </form>
-                    </div>
-
-                </div>
-            </div>
+      <div style="margin-top: 174px;" class="main-section">
+        <div
+          class="text-center profile-content"
+          style="background-color: #fafbfe; padding:20px"
+        >
+          <div
+            style="border-bottom: 1px solid #000; padding-bottom:50px;"
+            class="text-center profile-photo"
+          >
+            <form
+              method="post"
+              th:action="@{/users/upload}"
+              enctype="multipart/form-data"
+              id="imageform"
+            >
+              <h3>
+                <a
+                  style="color: #f64c72;text-decoration: none;"
+                  href="#"
+                  onclick="uploadfile(this)"
+                >
+                  تغيير الصورة الشخصية
+                </a>
+                <input
+                  id="file"
+                  name="file"
+                  type="file"
+                  style="display:none;"
+                  onchange="fileSelected()"
+                />
+              </h3>
+              <input type="submit" value="تأكيد التغيير" />
+            </form>
+            <a
+              th:href="@{|/upload/profilepic/${session[user]}/${session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getImageUrl()}|}"
+            >
+              <img
+                th:src="@{|/upload/profilepic/${session[user]}/${session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getImageUrl()}|}"
+                alt=""
+                class="rounded-circle"
+                style="width: 68px;"
+                id="profilepic"
+              />
+            </a>
+          </div>
+          <div
+            class="text-content p-0 my-5"
+            style="color: #f64c72; font-size: 22px;"
+          >
+            <h3>تغيير كلمة السر</h3>
+            <form action="/user/updatePassword" class="" id="passwordform">
+              <div class="form-group">
+                <p style="color:red" id="passerr"></p>
+                <label for="oldpassword">كلمة السر القديمة</label>
+                <input
+                  type="password"
+                  id="oldpassword"
+                  name="oldpassword"
+                  class="form-control"
+                />
+                <label for="newpassword">كلمة السر الجديدة</label>
+                <input
+                  type="password"
+                  id="newpassword"
+                  name="newpassword"
+                  class="form-control"
+                />
+                <label for="repeatpassord">اكد ع كلمة السر الجديدة</label>
+                <input
+                  type="password"
+                  id="repeatpassword"
+                  name="repeatpassword"
+                  class="form-control"
+                />
+              </div>
+              <input
+                type="submit"
+                value="تغيير"
+                class="btn btn-primary welcome-btn"
+              />
+            </form>
+          </div>
         </div>
-        <script>
-            const file=document.querySelector('#file');
-            const image=document.querySelector('#profilepic');
-            const imageform=document.querySelector('#imageform');
-            const npassword = document.querySelector('#newpassword');
-            const form = document.querySelector('#passwordform');
-            const xhr = new XMLHttpRequest();
-            const oldpassword=document.querySelector('#oldpassword');
-            const url_string = window.location.href
-            const url = new URL(url_string);
-            const username = url.searchParams.get("username");
-                    form.addEventListener("submit", (e) => {
-                        e.preventDefault();
-                        if (npassword != document.querySelector('#repeatpassword')) {
-                            document.querySelector('#passerr').textContent = "الكلمتين السر مش زى بعض";
-                        }
-                        xhr.open("POST","http://localhost:8080/users/updpassword",true);
-                        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                        xhr.send(`oldPassword=${oldpassword.value}&newPassword=${npassword.value}`);
-                        xhr.onreadystatechange=function(){
-                            console.log(this);
-                        };
-                    });
-                    
-                    imageform.addEventListener("submit",(e)=>{
-                        e.preventExtensions();
-                        xhr.open("POST","http://localhost:8080/users/upload",true);
-                        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                        xhr.send(`file=${document.queryselector("#file")}`);
-                        xhr.onreadystatechange=function(){
-                            console.log(this);
-                        };
-                        xhr.onload=function(){
-                            console.log("this is"+this);
-                        };
-                    });
-                    
-            function uploadfile(event){
-                console.log(event);
-                file.click();
-            }
-            function fileSelected(){
-                console.log(file.files[0]);
-                const imageSrc=URL.createObjectURL(file.files[0]);
-                profilepic.src=imageSrc;
-                document.querySelector(".profile-photo").children[1].href=imageSrc;
-            }
-        </script>
-    </body>
+      </div>
+    </div>
+    <script>
+      const file = document.querySelector("#file");
+      const image = document.querySelector("#profilepic");
+      const imageform = document.querySelector("#imageform");
+      const npassword = document.querySelector("#newpassword");
+      const form = document.querySelector("#passwordform");
+      const xhr = new XMLHttpRequest();
+      const oldpassword = document.querySelector("#oldpassword");
+      const url_string = window.location.href;
+      const url = new URL(url_string);
+      const username = url.searchParams.get("username");
+      form.addEventListener("submit", e => {
+        e.preventDefault();
+        if (npassword != document.querySelector("#repeatpassword")) {
+          document.querySelector("#passerr").textContent =
+            "الكلمتين السر مش زى بعض";
+        }
+        xhr.open("POST", "http://localhost:8080/users/updpassword", true);
+        xhr.setRequestHeader(
+          "Content-type",
+          "application/x-www-form-urlencoded"
+        );
+        xhr.send(
+          `oldPassword=${oldpassword.value}&newPassword=${npassword.value}`
+        );
+        xhr.onreadystatechange = function() {
+          console.log(this);
+        };
+      });
+
+      imageform.addEventListener("submit", e => {
+        e.preventExtensions();
+        xhr.open("POST", "http://localhost:8080/users/upload", true);
+        xhr.setRequestHeader(
+          "Content-type",
+          "application/x-www-form-urlencoded"
+        );
+        xhr.send(`file=${document.queryselector("#file")}`);
+        xhr.onreadystatechange = function() {
+          console.log(this);
+        };
+        xhr.onload = function() {
+          console.log("this is" + this);
+        };
+      });
+
+      function uploadfile(event) {
+        console.log(event);
+        file.click();
+      }
+      function fileSelected() {
+        console.log(file.files[0]);
+        const imageSrc = URL.createObjectURL(file.files[0]);
+        profilepic.src = imageSrc;
+        document.querySelector(".profile-photo").children[1].href = imageSrc;
+      }
+    </script>
+  </body>
 </html>

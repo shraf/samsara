@@ -6,6 +6,7 @@
 package com.samsara.samsara.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -15,6 +16,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -33,6 +36,32 @@ public class Advertise {
     @JsonBackReference
     private User user;
     private String phoneNumber;
+    private String city;
+    private String type;
+    private LocalDateTime  creationDateTime;
+
+    public LocalDateTime  getCreationDateTime() {
+        return creationDateTime;
+    }
+
+    public void setCreationDateTime(LocalDateTime  creationDateTime) {
+        this.creationDateTime = creationDateTime;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 public Advertise(){
     imagesurl=new ArrayList<String>();
 }

@@ -13,6 +13,7 @@ import com.samsara.samsara.services.UserService;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -68,6 +69,10 @@ public class AdsApi {
         User user = userservice.findUserByUserName((String) session.getAttribute("user"));
         user.addAdd(ad);
         ad.setUser(user);
+        ad.setCreationDateTime(LocalDateTime.now());
+        System.out.println("getting ad information");
+        System.out.println(ad.getCity());
+        System.out.println(ad.getType());
         ad = adservice.saveAdvertise(ad);
         if (files != null && files.length > 0) {
             saveAdImages(files, ad);

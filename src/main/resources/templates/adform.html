@@ -1,11 +1,13 @@
 <html xmlns:th="https://thymeleaf.org">
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
         <link th:href="@{/styles/style.css}" rel="stylesheet" />
         <script
             src="https://kit.fontawesome.com/3959db2254.js"
             crossorigin="anonymous"
         ></script>
+        
         <link
             href="https://fonts.googleapis.com/css?family=Cairo:200,300,400,600,700,900&amp;subset=arabic,latin-ext"
             rel="stylesheet"
@@ -62,6 +64,18 @@
                     </div>
                     <div class="row">
                     <div class="form-group">
+                        <div class="col-12">
+                            <label for='type'>نوعك؟</label>
+                            <select name='type' class='custom-select'>
+                                <option th:each='type:${application.types}' th:value='${type}' th:text='${type}'></option>
+                            </select >
+                        </div>
+                        <div class="col-12 my-3">
+                            <label for='city'>مدينتك؟</label>
+                            <select name='city' class='custom-select'>
+                                <option th:each='city:${application.cities}' th:value='${city}' th:text='${city}'></option>
+                            </select >
+                        </div>
                         <div class="col-12">
                             <p id="errorphone"></p>
                         <label for="phone number"  style="display:block;text-align: right">هات رقمك</label>
