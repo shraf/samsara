@@ -1,10 +1,7 @@
 <html xmlns:th="https://thymeleaf.org">
     <head>
         <meta charset="utf-8" />
-        <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
         <link th:href="@{/styles/style.css}" rel="stylesheet" />
         <script
             src="https://kit.fontawesome.com/3959db2254.js"
@@ -36,104 +33,250 @@
             crossorigin="anonymous"
             />
     </head>
-  <body style="font-family: 'Cairo', sans-serif; overflow-x: hidden;">
-    <div class="container-fluid pl-0 pr-0">
-        <div th:replace="header::header"></div>
-      <div class="row">
-        <aside class="col-md-3 col-sm-12 "style="margin-top:100px;margin-bottom:0px;">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">اضافة اعلانن</h5>
-              <p class="card-text">
-                  <a class="stretched-link text-muted" href="#" th:href="@{/adform}" style="text-decoration: none;">
-                حط اعلان سواء عاوز تشترى او تبيع او تأجر بس ياريت تتفقد الاعلانات الموجودة اولريدى الاول
-                  </a>
-                  </p>
-              
-              
+    <body style="font-family: 'Cairo', sans-serif; overflow-x: hidden;">
+        <div class="container-fluid pl-0 pr-0">
+            <div th:replace="header::header"></div>
+            <div class="row">
+                <aside class="col-md-3 col-sm-12 "style="margin-top:100px;margin-bottom:0px;">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">اضافة اعلانن</h5>
+                            <p class="card-text">
+                                <a class="stretched-link text-muted" href="#" th:href="@{/adform}" style="text-decoration: none;">
+                                    حط اعلان سواء عاوز تشترى او تبيع او تأجر بس ياريت تتفقد الاعلانات الموجودة اولريدى الاول
+                                </a>
+                            </p>
+
+
+                        </div>
+                    </div>
+
+                </aside>
+                <div class="main-section col-md-5 col-sm-12">
+
+
+                    <section
+                        id="ads"
+                        style="position:fixed;overflow-y: scroll;margin-top:100px;overflow-x:hidden;width:40%;clear:both"
+                        >
+                        <!-- <div class="card" th:each="ad:${ads}">-->
+                        <div  class="card adcard" th:each="ad:${#numbers.sequence(0,ads.size()-1,+1)}" th:name='${ads[ad].title}' th:city="${ads[ad].city}" th:type="${ads[ad].type}" th:user="${ads[ad].user.userName}" th:date="${ads[ad].creationDateTime}">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a  href="/ad" th:href="|/ad?id=${ads[ad].id}|" th:text="${ads[ad].title}" style="text-decoration:none; color:black;font-weight: bold"></a>
+                                </h5>
+                                <h6><a style="text-decoration: none" th:text="${ads[ad].user.userName}" th:href="|/profile?username=${ads[ad].user.userName}|"></a></h6>
+                                <p class="card-text">
+                                    <span th:text="${ads[ad].describtion}"></span>
+                                </p>
+
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+                <div class='col-md-4' style='margin-top: 100px;margin-left: 0'>
+                    <h3>فلتر حواراتك</h3>
+                    <form>
+                        <div class='form-group'>
+                            <label for='#search'>ابحث</label>
+                            <input id='search' type='text' class='form-control' placeholder="search">
+                        </div>
+                        <div class='form-group'>
+                            <label for='#city'>عاوز فين؟</label>
+                            <select id='city' class='custom-select form-control'>
+                                <option selected value="">كله ياشرف</option>
+                                <option th:each='city:${application.cities}' th:value='${city}' th:text='${city}'></option>
+                            </select>
+                        </div>
+                        <div class='form-group'>
+                            <label for='#type'>نوع الاعلان</label>
+                            <select id="type"class='custom-select form-control'>
+                                <option selected value="">كله يشرف</option>
+                                <option th:each='type:${application.types}' th:value='${type}' th:text='${type}'></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for='#sort'>ترتيب حسب</label>
+                            <select id='sort' class='custom-select form-control'>
+                                <option selected>التاريخ</option>
+                                <option>اللى ناشر الاعلان</option>
+
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <nav id="pagn" aria-label="Page navigation example" class="fixed-bottom" style="position:absolute;bottom:10%">
+                    <ul class="pagination ">
+                        <li class="page-item "><a class="page-link" href="#">Previous</a></li>
+                        <ul class="pagination" th:each="page:${#numbers.sequence(1,totalPages)}">
+
+                            <th:block th:if=" ${#strings.equals(param.pagenumber, #strings.toString(page))}"> <li class="page-item active"><a class="page-link " href="#" th:text="${page}" th:href="|/ads?pagenumber=${page}|"></a></li></th:block>
+                            <th:block th:if="${#strings.equals(param.pagenumber,#strings.toString(page))==false}"><li class="page-item"><a class="page-link" href="#" th:text="${page}" th:href="|/ads?pagenumber=${page}|" ></a></li></th:block>
+                        </ul>
+                        <li class="page-item"><a class="page-link" href="#"  th:text="Next" onclick="nextpage()">Next</a></li>
+                    </ul>
+                </nav>
+
             </div>
-          </div>
+            <footer>        <div id="footer" th:include="footer::footer" ></div></footer>
+        </div>
+        <style>
+            #ads{
+                height:80% !important;
+            }
+            #footer{
+                position: absolute;
+                bottom:0;
+                right:0;
+                height: auto !important;
+                width:100%;
+            }
+            @media only screen and (max-width: 767px) {
+                .card{
+                    min-height: 0 !important; 
+                    margin-top:0 !important; 
+                }
+                #ads{
+                    margin-top: auto !important;
+                    height:60% !important;
+                    width:100%;
+                }
+                #pagn{
+                    bottom:48 !important;
+                }
+                #advertise{
+                }
+            }
+
+        </style>
+    </body>
+
+    <script>
+        console.log("ho");
+        var timer = null;
+        var fltr = ["", "", ""];
+        // const ads = Array.from(document.querySelectorAll('.adcard'));
+        const ads = Array.from(document.querySelector('#ads').children);
+        const search = document.querySelector('#search');
+        const city = document.querySelector('#city');
+        const type = document.querySelector('#type');
+        const sort = document.querySelector('#sort');
+        const adsection = document.querySelector('#ads');
+        console.log(ads);
+        function nextpage() {
+            console.log("hi");
+            let url = window.location.href;
+            let nurl = new URL(url)
+            let pagenumber = nurl.searchParams.get("pagenumber");
+            console.log(pagenumber);
+            console.log(window.location.href);
+            window.location.href = "http://localhost:8080/ads?pagenumber=" + (++pagenumber);
+        }
+
+        search.addEventListener('keydown', function () {
+
+            clearTimeout(timer);
+
+            timer = setTimeout(() => {
+                fltr[2] = search.value;
+                filter()
+            }, 500);
+            console.log(search.value);
+
+        })
+
+        type.addEventListener('change', function () {
+            fltr[1] = type.selectedOptions[0].value;
+            filter();
+        })
+
+        city.addEventListener('change', function () {
+            fltr[0] = city.selectedOptions[0].value;
+            console.log(city.selectedOptions);
+            console.log(fltr[0]);
+            console.log()
+            filter();
+        })
+
+        sort.addEventListener('change', function () {
+            console.log(sort);
+            console.log('filtering ....');
+            console.log(adsection);
+            if (sort.selectedOptions[0].value === 'اللى ناشر الاعلان')
+                [...adsection.children].sort((firstad, secondad) => {
+                    console.log(this);
+                    console.log(firstad);
+                    console.log(secondad);
+                    if (firstad.attributes.user.value > secondad.attributes.user.value) {
+                        console.log(firstad.attributes.user.value);
+                        console.log(secondad.attributes.user.value);
+                        return 1;
+                    } else
+                    {
+                        console.log(firstad.attributes.user.value);
+                        console.log(secondad.attributes.user.value);
+                        return -1;
+                    }
+                }).map((ad) => adsection.appendChild(ad));
+            
+            else if (sort.selectedOptions[0].value === 'التاريخ') {
+                [...adsection.children].sort((firstad, secondad) => {
+                    if (new Date(firstad.attributes.date.value) < new Date(secondad.attributes.date.value)) {
+                       
+
+                        return 1;
+
+                    } else{
+                        return -1;
+                       
+                }
+
+                }).map((ad)=>adsection.appendChild(ad));
+            }
+
+        })
+
+        function filter() {
+            ads.forEach((ad) => {
+                console.log(ad.attributes.city);
+                if (ad.attributes.city.value.includes(fltr[0]) && ad.attributes.type.value.includes(fltr[1]) && ad.attributes.name.value.includes(fltr[2]))
+                    ad.style.display = 'block';
+                else
+                    ad.style.display = 'none';
+
+            })
+        }
+        /* search.addEventListener("keydown", function () {
+         clearTimeout(timer);
+         timer = setTimeout(() => {
+         console.log(ads);
+         ads.forEach((ad) => {
+         if (!ad.attributes[1].value.includes(search.value)) {
+         ad.style.display = 'none';
+         console.log(search.value);
+         } else
+         ad.style.display = 'block';
          
-        </aside>
-        <div class="main-section col-md-7 col-sm-12">
-          
-        
-        <section
-          id="ads"
-          style="position:fixed;overflow-y: scroll;margin-top:100px;"
-        >
-         <!-- <div class="card" th:each="ad:${ads}">-->
-              <div  class="card" th:each="ad:${#numbers.sequence(ads.size()-1,0,-1)}" >
-            <div class="card-body">
-              <h5 class="card-title">
-                  <a  href="/ad" th:href="|/ad?id=${ads[ad].id}|" th:text="${ads[ad].title}" style="text-decoration:none; color:black;font-weight: bold"></a>
-            </h5>
-                <h6><a style="text-decoration: none" th:text="${ads[ad].user.userName}" th:href="|/profile?username=${ads[ad].user.userName}|"></a></h6>
-              <p class="card-text">
-                  <span th:text="${ads[ad].describtion}"></span>
-              </p>
-             
-            </div>
-          </div>
-          
-        </section>
-      </div>
-      <nav id="pagn" aria-label="Page navigation example" class="fixed-bottom" style="position:absolute;bottom:10%">
-        <ul class="pagination ">
-          <li class="page-item "><a class="page-link" href="#">Previous</a></li>
-          <ul class="pagination" th:each="page:${#numbers.sequence(1,totalPages)}">
-              
-              <th:block th:if=" ${#strings.equals(param.pagenumber, #strings.toString(page))}"> <li class="page-item active"><a class="page-link " href="#" th:text="${page}" th:href="|/ads?pagenumber=${page}|"></a></li></th:block>
-              <th:block th:if="${#strings.equals(param.pagenumber,#strings.toString(page))==false}"><li class="page-item"><a class="page-link" href="#" th:text="${page}" th:href="|/ads?pagenumber=${page}|" ></a></li></th:block>
-          </ul>
-          <li class="page-item"><a class="page-link" href="#"  th:text="Next" onclick="nextpage()">Next</a></li>
-        </ul>
-      </nav>
+         })
+         console.log(search.value)
+         }
+         , 500
+         );
+         });
+         console.log(city);
+         city.addEventListener('change', function () {
+         if (city.selectedOptions[0].value === 'كله ياشرف')
+         ads.forEach((ad) => ad.style.display = 'block');
+         
+         else
+         ads.forEach((ad) => {
+         if (ad.city != city.selectedOptions[0].value)
+         ad.style.display = 'none';
+         else
+         ad.style.display = "block";
+         })
+         })*/
 
-    </div>
-        <footer>        <div id="footer" th:include="footer::footer" ></div></footer>
-    </div>
-      <style>
-      #ads{
-         height:80% !important;
-      }
-      #footer{
-          position: absolute;
-          bottom:0;
-          right:0;
-         height: auto !important;
-         width:100%;
-      }
-       @media only screen and (max-width: 767px) {
-           .card{
-               min-height: 0 !important; 
-               margin-top:0 !important; 
-           }
-           #ads{
-               margin-top: auto !important;
-               height:60% !important;
-               width:100%;
-           }
-           #pagn{
-               bottom:48 !important;
-           }
-           #advertise{
-           }
-       }
-
-  </style>
-  </body>
-  
-  <script>
-      console.log("ho");
-      function nextpage(){
-          console.log("hi");
-          let url=window.location.href;
-          let nurl=new URL(url)
-          let pagenumber=nurl.searchParams.get("pagenumber");
-          console.log(pagenumber);
-          console.log(window.location.href);
-          window.location.href="http://localhost:8080/ads?pagenumber="+(++pagenumber);
-      }
-  </script>
+    </script>
 </html>
