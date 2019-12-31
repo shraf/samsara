@@ -22,6 +22,8 @@ public class AuthenticationSuccessHandlerImpl extends SimpleUrlAuthenticationSuc
         HttpSession session=request.getSession();
         System.out.println(authentication.getName());
         session.setAttribute("user",authentication.getName());
+        session.setMaxInactiveInterval(-1);
+        System.out.println("system time out is:"+session.getMaxInactiveInterval());
         super.onAuthenticationSuccess(request, response, authentication);
     }
 }

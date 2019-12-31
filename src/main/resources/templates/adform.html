@@ -1,210 +1,176 @@
 <html xmlns:th="https://thymeleaf.org">
-  <head>
-    <meta charset="utf-8" />
-    <title>انشاء اعلان</title>
-
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <link th:href="@{/styles/style.css}" rel="stylesheet" />
-    <script
-      src="https://kit.fontawesome.com/3959db2254.js"
-      crossorigin="anonymous"
-    ></script>
-
-    <link
-      href="https://fonts.googleapis.com/css?family=Cairo:200,300,400,600,700,900&amp;subset=arabic,latin-ext"
-      rel="stylesheet"
-    />
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-  </head>
-  <body style="font-family: 'Cairo', sans-serif;">
-    <div class="container-fluid pl-0 pr-0">
-      <div th:replace="header::header"></div>
-      <div class="form" style="margin-top: 150px;">
-        <form
-          class="adform"
-          th:action="@{/ads/add}"
-          method="post"
-          id="ad-form"
-          enctype="multipart/form-data"
-        >
-          <div class="form-group">
-            <p id="errortitle"></p>
-            <label for="title" class="float-right">عنوان الاعلان</label>
-            <input
-              type="text"
-              name="title"
-              id="title"
-              class="form-control"
-              placeholder="عنوان الاعلان"
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
+        <link th:href="@{/styles/style.css}" rel="stylesheet" />
+        <script
+            src="https://kit.fontawesome.com/3959db2254.js"
+            crossorigin="anonymous"
+        ></script>
+        
+        <link
+            href="https://fonts.googleapis.com/css?family=Cairo:200,300,400,600,700,900&amp;subset=arabic,latin-ext"
+            rel="stylesheet"
             />
-          </div>
-          <div class="form-group text-center">
-            <p id="errordes"></p>
-            <p>description</p>
-            <textarea
-              name="describtion"
-              id="describtion"
-              cols="30"
-              rows="10"
-              class="form-control
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"
+        ></script>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+            />
+    </head>
+    <body style="font-family: 'Cairo', sans-serif;">
+        <div class="container-fluid pl-0 pr-0">
+            <div th:replace="header::header"></div>
+            <div class="form" style="margin-top: 150px;">
+                <form class="adform" th:action="@{/ads/add}" method="post" id="ad-form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <p id="errortitle"></p>
+                        <label for="title" class="float-right">عنوان الاعلان</label>
+                        <input
+                            type="text"
+                            name="title"
+                            id="title"
+                            class="form-control"
+                            placeholder="عنوان الاعلان"
+                            />
+                    </div>
+                    <div class="form-group text-center">
+                        <p id="errordes"></p>
+                        <p>description</p>
+                        <textarea
+                            name="describtion"
+                            id="describtion"
+                            cols="30"
+                            rows="10"
+                            class="form-control
                             "
-            ></textarea>
-          </div>
-          <div class="row">
-            <div class="form-group">
-              <div class="col-12">
-                <label for="type">نوعك؟</label>
-                <select name="type" class="custom-select">
-                  <option
-                    th:each="type:${application.types}"
-                    th:value="${type}"
-                    th:text="${type}"
-                  ></option>
-                </select>
-              </div>
-              <div class="col-12 my-3">
-                <label for="city">مدينتك؟</label>
-                <select name="city" class="custom-select">
-                  <option
-                    th:each="city:${application.cities}"
-                    th:value="${city}"
-                    th:text="${city}"
-                  ></option>
-                </select>
-              </div>
-              <div class="col-12">
-                <p id="errorphone"></p>
-                <label
-                  for="phone number"
-                  style="display:block;text-align: right"
-                  >هات رقمك</label
-                >
+                            ></textarea>
+                    </div>
+                    <div class="row">
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label for='type'>نوعك؟</label>
+                            <select name='type' class='custom-select'>
+                                <option th:each='type:${application.types}' th:value='${type}' th:text='${type}'></option>
+                            </select >
+                        </div>
+                        <div class="col-12 my-3">
+                            <label for='city'>مدينتك؟</label>
+                            <select name='city' class='custom-select'>
+                                <option th:each='city:${application.cities}' th:value='${city}' th:text='${city}'></option>
+                            </select >
+                        </div>
+                        <div class="col-12">
+                            <p id="errorphone"></p>
+                        <label for="phone number"  style="display:block;text-align: right">هات رقمك</label>
+               
+                        <input id="phoneNumber" name="phoneNumber" type="text" onpaste="return isCopyNumber(event)" onkeypress="return isNumber(event)" class="form-control">
+                        </div>
+                        </div>
+                        </div>
+                        <div class="form-group" id="files-group">
+                    <label
+                        for="btnfiles"
+                        style="display: block; text-align: right;"
+                        class=""
+                        >ارفع صور وفيديوهات شقتك للمعاينة</label
+                    >
+                    <button
+                        name="btnfiles"
+                        class="btn btn-primary welcome-btn "
+                        type="button"
+                        onclick="uploadfile()"
+                        >
+                        اختيار الملفات
+                    </button>
+                    <span id="imagedisplay"></span>
 
-                <input
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  type="text"
-                  onpaste="return isCopyNumber(event)"
-                  onkeypress="return isNumber(event)"
-                  class="form-control"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="form-group" id="files-group">
-            <label
-              for="btnfiles"
-              style="display: block; text-align: right;"
-              class=""
-              >ارفع صور وفيديوهات شقتك للمعاينة</label
-            >
-            <button
-              name="btnfiles"
-              class="btn btn-primary welcome-btn "
-              type="button"
-              onclick="uploadfile()"
-            >
-              اختيار الملفات
-            </button>
-            <span id="imagedisplay"></span>
-          </div>
-          <div class="form-group">
-            <button
-              class="btn btn-primary welcome-btn "
-              type="button"
-              onclick="validate(event)"
-            >
-              اضافة اعلان
-            </button>
-          </div>
-        </form>
-      </div>
-      <div th:replace="footer::footer"></div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary welcome-btn " type="button" onclick="validate(event)">
+                        اضافة اعلان
+                    </button>
+                </div>
+            </form>
+        </div>
+            <div th:replace="footer::footer"></div>
     </div>
-  </body>
+</body>
 
-  <script>
+<script>
     let filesnumber = 1;
     var textnodetitle;
     let titleErrMsg = document.querySelector("#errortitle");
     let desErrMsg = document.querySelector("#errordes");
-    let phoneErrMsg = document.querySelector("#errorphone");
+    let phoneErrMsg=document.querySelector("#errorphone");
     function validate(evt) {
-      let title = document.querySelector("#title").value;
-      let description = document.querySelector("#describtion").value;
-      let phonenumber = document.querySelector("#phoneNumber").value;
-      titleErrMsg.style.color = "red";
-      desErrMsg.style.color = "red";
-      phoneErrMsg.color = "red";
-      phoneErrMsg.textContent = "";
-      titleErrMsg.textContent = "";
-      desErrMsg.textContent = "";
-      if (phonenumber.length < 11 || phonenumber.length > 15) {
-        phoneErrMsg.textContent = "رقم التليفون مش مظبوط ينجم";
-        evt.preventDefault();
-      }
-      if (title.length < 4) {
-        console.log(title.length);
-        titleErrMsg.textContent = "العنوان قصير جدا";
-        evt.preventDefault();
-      }
+        let title = document.querySelector("#title").value;
+        let description = document.querySelector("#describtion").value;
+        let phonenumber=document.querySelector("#phoneNumber").value;
+        titleErrMsg.style.color = "red";
+        desErrMsg.style.color = "red";
+        phoneErrMsg.color="red";
+        phoneErrMsg.textContent="";
+        titleErrMsg.textContent = "";
+        desErrMsg.textContent = "";
+        if(phonenumber.length<11||phonenumber.length>15){
+            phoneErrMsg.textContent="رقم التليفون مش مظبوط ينجم";
+            evt.preventDefault();
+        }
+        if (title.length < 4) {
+            console.log(title.length);
+            titleErrMsg.textContent = "العنوان قصير جدا";
+            evt.preventDefault();
+        }
 
-      if (description.length < 20) {
-        desErrMsg.textContent = "الوصف قصير جدا";
-        //  evt.preventDefault();
-      }
-      if (
-        title.length >= 4 &&
-        phonenumber.length > 10 &&
-        phonenumber.length < 15
-      ) {
-        console.log("aho yaki");
-        document.querySelector(".adform").submit();
-      }
+        if (description.length < 20) {
+            desErrMsg.textContent = "الوصف قصير جدا";
+            //  evt.preventDefault();
+        }
+        if (title.length >= 4&&phonenumber.length>10&&phonenumber.length<15    ) {
+            console.log("aho yaki");
+            document.querySelector(".adform").submit();
+            
+        }
     }
 
     function FileSelected(input) {
-      /*   files = document.getElementById("files").files;
+        /*   files = document.getElementById("files").files;
          let filesnames = "";
          let filesarr = Array.from(files);
          console.log(files);
          filesarr.forEach(file => (filesnames += file.name + " "));
          document.getElementById("fileName").textContent = filesnames;
          console.log(e.target.result);*/
-      input = window.event;
-      let image = new Image();
-      image.src = URL.createObjectURL(input.target.files[0]);
-      image.onload = function() {
+        input = window.event;
+        let image=new Image();
+        image.src=URL.createObjectURL(input.target.files[0]);
+        image.onload=function(){
+            
+        
         let imgdisplay = document.querySelector("#imagedisplay");
         let img = document.createElement("img");
         let closebtn = document.createElement("button");
         closebtn.type = "button";
         closebtn.className = "closebtn";
         closebtn.setAttribute("onclick", "removeImg(this)");
-        closebtn.setAttribute("name", filesnumber);
+        closebtn.setAttribute("name",filesnumber);
         img.src = URL.createObjectURL(input.target.files[0]);
         img.style.width = "100px";
         img.style.height = "100px";
@@ -214,54 +180,55 @@
         console.log(input.target);
         console.log(input.target.files[0]);
         filesnumber++;
-      };
-      image.onerror = function() {
-        setTimeout(100, alert("please enter a valid image"));
+    }
+    image.onerror=function(){
+        setTimeout(100,alert("please enter a valid image"));
         input.target.parentNode.removeChild(input.target);
-      };
+        
+    }
     }
     function uploadfile() {
-      let parent = document.querySelector("#files-group");
-      let element = document.createElement("input");
-      element.type = "file";
-      element.name = "files";
-      element.id = `files${filesnumber}`;
-      element.style.width = "0px";
-      element.setAttribute("onchange", "FileSelected(this)");
-      parent.appendChild(element);
-      element.click();
+        let parent = document.querySelector("#files-group");
+        let element = document.createElement("input");
+        element.type = "file";
+        element.name = "files";
+        element.id = `files${filesnumber}`;
+        element.style.width = "0px";
+        element.setAttribute("onchange", "FileSelected(this)");
+        parent.appendChild(element); 
+        element.click();
     }
     function removeImg(btn) {
-      console.log(event);
+        console.log(event);
 
-      let imgparent = document.querySelector("#imagedisplay");
-      let fileparent = document.querySelector("#files-group");
-      let filenumber = event.target.name;
-      console.log("el number is" + filenumber);
-      console.log(event);
-      console.log(event.target);
-      console.log(event.target.previousElementSibling);
-      imgparent.removeChild(event.target.previousElementSibling);
-      console.log(document.querySelector(`#files${filenumber}`));
-      console.log(`files${filenumber}`);
-      fileparent.removeChild(document.querySelector(`#files${filenumber}`));
-      imgparent.removeChild(btn);
-      filesnumber--;
-      console.log("iiii" + document.querySelector("files"));
+        let imgparent = document.querySelector("#imagedisplay");
+        let fileparent = document.querySelector("#files-group");
+        let filenumber=event.target.name;
+        console.log("el number is"+filenumber);
+        console.log(event);
+        console.log(event.target);
+        console.log(event.target.previousElementSibling);
+        imgparent.removeChild(event.target.previousElementSibling);
+        console.log(document.querySelector(`#files${filenumber}`));
+        console.log(`files${filenumber}`);
+        fileparent.removeChild(document.querySelector(`#files${filenumber}`));
+        imgparent.removeChild(btn);
+        filesnumber--;
+        console.log("iiii"+document.querySelector("files"));
     }
-    function isNumber(event) {
-      console.log(event);
-      let charcode = event.charCode;
-      console.log(charcode);
-      if (charcode > 47 && charcode < 58) return true;
-      else return false;
+    function isNumber(event){
+        console.log(event);
+        let charcode=event.charCode;
+        console.log(charcode);
+        if(charcode>47&&charcode<58)
+            return true;
+        else
+            return false;
     }
-    function isCopyNumber(event) {
-      console.log(event);
-      let text = (event.originalEvent || event).clipboardData.getData(
-        "text/plain"
-      );
-      return !isNaN(text);
+    function isCopyNumber(event){
+        console.log(event);
+        let text= (event.originalEvent || event).clipboardData.getData('text/plain');
+        return !isNaN(text);
     }
-  </script>
+</script>
 </html>
