@@ -61,7 +61,7 @@
                         style="position:fixed;overflow-y: scroll;margin-top:100px;overflow-x:hidden;width:40%;clear:both"
                         >
                         <!-- <div class="card" th:each="ad:${ads}">-->
-                        <div style="max-height: 150px; overflow: hidden;"  class="card adcard" th:each="ad:${#numbers.sequence(0,ads.size()-1,+1)}" th:name='${ads[ad].title}' th:city="${ads[ad].city}" th:type="${ads[ad].type}" th:user="${ads[ad].user.userName}" th:date="${ads[ad].creationDateTime}">
+                        <div style="max-height: 150px; overflow: hidden;"  class="card " th:each="ad:${#numbers.sequence(0,ads.size()-1,+1)}" th:name='${ads[ad].title}' th:city="${ads[ad].city}" th:type="${ads[ad].type}" th:user="${ads[ad].user.userName}" th:date="${ads[ad].creationDateTime}">
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <a  href="/ad" th:href="|/ad?id=${ads[ad].id}|" th:text="${ads[ad].title}" style="text-decoration:none; color:black;font-weight: bold"></a>
