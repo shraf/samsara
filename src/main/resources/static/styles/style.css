@@ -97,3 +97,24 @@ header {
   background-size: cover;
   transform: translateY(-50px);
 }
+.filter-sm{
+  display:none;
+}
+.on{
+  display:block;
+}
+.off{
+  display:none;
+}
+@media only screen and (max-width: 767px){
+.filter-lg{
+  display:none;
+}
+.filter-sm{
+  display:block;
+
+}
+
+.filter-section{
+}
+}

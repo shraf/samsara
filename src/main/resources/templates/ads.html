@@ -77,9 +77,10 @@
 
                     </section>
                 </div>
-                <div class='col-md-4' style='margin-top: 100px;margin-left: 0'>
-                    <h3>فلتر حواراتك</h3>
-                    <form>
+                <div class='col-md-4 filter-section' style='margin-top: 100px;margin-left: 0'>
+                    <h3 class="filter-lg">فلتر حواراتك</h3>
+                    <h3 class="filter-sm"><a href="#" class="link-sm" style="text-decoration: none;color:black;">فلتر حواراتك</a></h3>
+                    <form id="filter-form">
                         <div class='form-group'>
                             <label for='#search'>ابحث</label>
                             <input id='search' type='text' class='form-control' placeholder="search">
@@ -144,6 +145,7 @@
                     height:60% !important;
                     width:100%;
                     position:relative !important;
+                    
                 }
                 #pagn{
                     bottom:48 !important;
@@ -157,6 +159,7 @@
     </body>
 
     <script>
+        //filter form process
         console.log("ho");
         var timer = null;
         var fltr = ["", "", ""];
@@ -251,6 +254,20 @@
 
             })
         }
+        //filter section view
+        const filter_form=document.querySelector("#filter-form");
+        const link_sm=document.querySelector(".link-sm");
+        link_sm.addEventListener("click",()=>{
+            if(filter_form.classList.contains("on")){
+                filter_form.classList.remove("on");
+                filter_form.classList.add("off");
+
+            }
+            else{
+                filter_form.classList.remove("off");
+                filter_form.classList.add("on");
+            }
+        })
         /* search.addEventListener("keydown", function () {
          clearTimeout(timer);
          timer = setTimeout(() => {
