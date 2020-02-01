@@ -66,9 +66,12 @@ public class signup {
             user.setPassword(passwordEncoder.encode(repassword));
             user.setActive(1);
             userserv.addUser(user);
+            System.out.println("authintecated success");
             authenticateUserAndSetSession(user.getUserName(), repassword,request);            
             new File(Paths.get("src\\main\\upload\\profilepic\\"+user.getUserName()).toAbsolutePath().toString()).mkdir();
         }
+                    System.out.println("not authintecated success");
+
         return "redirect:/";
     }
 
