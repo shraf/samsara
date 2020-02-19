@@ -3,7 +3,9 @@ package com.samsara.samsara;
 import com.samsara.samsara.Securityimp.UserPrincipal;
 import com.samsara.samsara.entities.User;
 import java.io.IOException;
+import java.util.Arrays;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,12 +20,21 @@ public class AuthenticationSuccessHandlerImpl extends SimpleUrlAuthenticationSuc
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
-        
-        HttpSession session=request.getSession();
+
+        HttpSession session = request.getSession();
         System.out.println(authentication.getName());
-        session.setAttribute("user",authentication.getName());
-        session.setMaxInactiveInterval(-1);
-        System.out.println("system time out is:"+session.getMaxInactiveInterval());
-        super.onAuthenticationSuccess(request, response, authentication);
+        session.setAttribute("user", authentication.getName());
+        Cookie cookie;
+        if ((Arrays.asList(request.getCookies()).stream()
+                .filter(x -> x.getName() == "logged").findAny().orElse(null)) == null) {
+            cookie = new Cookie("logged", "true");
+            cookie.setMaxAge(-1);
+            response.addCookie(cookie);
+            System.out.println("fucking referere is " + request.getHeader("referer"));
+            super.onAuthenticationSuccess(request, response, authentication);
+            if (request.getAttribute("userurl") != null) {
+                response.sendRedirect((String) request.getAttribute("userurl"));
+            }
+        }
     }
 }

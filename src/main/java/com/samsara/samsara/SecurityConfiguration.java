@@ -20,6 +20,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
@@ -55,20 +56,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/validsignup").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers("/whoare").permitAll()
-                .antMatchers("/images/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .addFilterBefore(new FilterLogout("/login",authenticationManager()), UsernamePasswordAuthenticationFilter.class)
                 .formLogin().loginPage("/sign-in")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .loginProcessingUrl("/login")
                 .successHandler(onsuccess)
                 .permitAll()
-                .and()    .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/sign-in");
-              //  http.csrf().disable();
-                /*.and()
-                .rememberMe().tokenValiditySeconds(2592000).key("mySecret!").rememberMeParameter("checkRememberMe")*/;
+                .and()    .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessHandler(getLogoutHandler())
+                .and()
+                .rememberMe().tokenValiditySeconds(100).key("mySecret!").rememberMeParameter("checkRememberMe").userDetailsService(userPrincipalDetailsService);
     }
 
     @Override
@@ -97,6 +96,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 public AuthenticationManager authenticationManagerBean() throws Exception {
     return super.authenticationManagerBean();
 }
+@Bean
+    public LogoutHandler getLogoutHandler(){
+        return new LogoutHandler();
+    }
     /*  @Bean
     public AuthenticationSuccessHandlerImpl onsuccess(){
         return new AuthenticationSuccessHandlerImpl();
