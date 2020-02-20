@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface AdvertiseRepository extends CrudRepository<Advertise,Long>{
     public List<Advertise> findAllByTitle(String title);
         @Modifying
-    @Query(value="DELETE FROM user_ads WHERE ads_id=?",nativeQuery=true)
+    @Query(value="DELETE FROM users_ads WHERE ads_id=?",nativeQuery=true)
         @Transactional
     public void deleteFromuser_ads(long id);
 }
