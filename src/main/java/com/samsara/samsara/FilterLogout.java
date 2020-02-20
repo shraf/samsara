@@ -5,6 +5,7 @@
  */
 package com.samsara.samsara;
 
+import com.samsara.samsara.Securityimp.UserPrincipal;
 import com.samsara.samsara.entities.User;
 import com.samsara.samsara.repositories.UserRepository;
 import com.samsara.samsara.services.UserService;
@@ -58,31 +59,34 @@ public class FilterLogout extends AbstractAuthenticationProcessingFilter {
         System.out.println("log fucking out filter");
         System.out.println("referer is" + request.getHeader("referer"));
         HttpServletResponse response = (HttpServletResponse) sr1;
+        Cookie cookie = null;
         if (request.getSession().getAttribute("SPRING_SECURITY_CONTEXT") == null) {
             System.out.println("security is null");
             if (request.getRequestURI().equals("/") || request.getRequestURI().contains("ads")
                     || request.getRequestURI().contains("profile") || request.getRequestURI().contains("ad")) {
                 if (request.getCookies() != null) {
-
-                    if ((Arrays.asList(request.getCookies()).stream()
-                            .filter(cookie -> cookie.getName().equals("logged"))
-                            .findAny().orElse(null) != null)) {
+                    cookie = (Arrays.asList(request.getCookies()).stream()
+                            .filter(c -> c.getName().equals("logged"))
+                            .findAny().orElse(null));
+                    if (cookie != null) {
                         System.out.println("cookie is here");
 //                 Authentication auth=new UsernamePasswordAuthenticationToken(userservice.findUserByUserName("sharafre"),null);
 //                 SecurityContextHolder.getContext().setAuthentication(auth);
-                        User user = userservice.findUserByUserName("sharafre");
+                        User user = userservice.findUserByUserName(cookie.getValue());
                         System.out.println(user.getUserName());
-                        Authentication auth = new UsernamePasswordAuthenticationToken(user, null, AuthorityUtils.createAuthorityList("ROLE_USER"));
+                        Authentication auth = new UsernamePasswordAuthenticationToken(new UserPrincipal(user), null, AuthorityUtils.createAuthorityList("ROLE_USER"));
                         SecurityContextHolder.getContext().setAuthentication(auth);
                         request.getSession().setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
-
                         request.setAttribute("userurl", request.getRequestURL());
                     }
 
                     System.out.println("url is fucking" + request.getRequestURI());
                 }
             }
-        }
+
+        } 
+            
+        
         fc.doFilter(sr, sr1);
         System.out.println("after chanining");
     }

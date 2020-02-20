@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FAQ</title>
+
+    <link th:href="@{/styles/style.css}" rel="stylesheet" />
+    <script
+      src="https://kit.fontawesome.com/3959db2254.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Cairo:200,300,400,600,700,900&amp;subset=arabic,latin-ext"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <div th:replace="header :: header"></div>
+    <div class="container">
+        <ul class="faq list">
+        <li class="faq_item">الموقع دا عن ايه؟</li>
+        <li class="ans_item">الموقع دا عن السمسرة</li>
+        <li class="faq_item">عن السمسرة ازاى؟؟</li>
+        <li class="ans_item">يعنى لو عندك شقة عاوز تبيعها او تشتريها او تأجرها الخ الموقع دا هيساعدك</li>
+        <li class="faq_item">هيساعدنى ازاى؟</li>
+        <li class="ans_item">
+            يعنى هتقدر تنشر عليه اللى انتا عاوزه من الاعلانات العقارية ع مستوى الجمهورية واى حد هيخش الموقع يقدر يشوفها
+            
+        </li>
+        <li class="faq_item">طب محتاج اعمل ايه عشان اخش فالحوار دا؟</li>
+        <li class="ans_item">ولا اى حاجة,اعمل اكاونت عالموقع وعيش</li>
+        <li class="faq_item">طب لو لقيت مشكلة فالموقع؟</li>
+        <li class="ans_item">
+            ساعتها ممكن تتواصل معايا عن طريق اكاونت الفيسبوك بتاعى او رقمى عالواتس االلى هتلاقيهم  فصفحة تواصل معنا
+
+        </li>
+    </ul>
+    </div>
+    <div style="margin-top:200px;bottom:0; width:100%">
+            <div th:replace="footer::footer" ></div>
+    </div>
+    <script th:href="@{/scripts/script.js}"></script>
+
+</body>
+<style>
+    .ans_item{
+        list-style: none;
+        margin-left:25px;
+       
+    }
+    .faq_item{
+        color:#f64c72;
+    }
+    li{
+        margin-top:10px;
+    }
+</style>
+</html>
