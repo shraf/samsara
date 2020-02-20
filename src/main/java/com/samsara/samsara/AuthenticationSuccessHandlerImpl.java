@@ -27,7 +27,7 @@ public class AuthenticationSuccessHandlerImpl extends SimpleUrlAuthenticationSuc
         Cookie cookie;
         if ((Arrays.asList(request.getCookies()).stream()
                 .filter(x -> x.getName() == "logged").findAny().orElse(null)) == null) {
-            cookie = new Cookie("logged", "true");
+            cookie = new Cookie("logged", authentication.getName());
             cookie.setMaxAge(-1);
             response.addCookie(cookie);
             System.out.println("fucking referere is " + request.getHeader("referer"));
