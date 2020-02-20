@@ -89,7 +89,7 @@ and open the template in the editor.
             <span th:if="${session[SPRING_SECURITY_CONTEXT]!=null}">
               <li class="nav-item">
                 <a
-                  th:href="@{|/profile?username=${session[user]}|}"
+                  th:href="@{|/profile?username=${session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getUsername()}|}"
                   class="nav-link"
                   >الصفحة الشخصية</a
                 >

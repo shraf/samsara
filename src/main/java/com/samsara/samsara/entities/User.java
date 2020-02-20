@@ -34,7 +34,6 @@ import javax.persistence.Table;
  * @author eldee
  */
 @Entity
-@Table(name="users")
 public class User {
     
     
