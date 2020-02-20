@@ -67,11 +67,9 @@ and open the template in the editor.
             <li class="nav-item">
               <a href="#" th:href="@{/whoare}" class="nav-link">من نحن</a>
             </li>
+            
             <li class="nav-item">
-              <a href="#" class="nav-link">تواصل معنا</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">الاسألة الشائعة</a>
+              <a href="#" class="nav-link" th:href="@{/faq}">الاسألة الشائعة</a>
             </li>
             <span th:if="${session[SPRING_SECURITY_CONTEXT]==null}"
               ><li class="nav-item">
