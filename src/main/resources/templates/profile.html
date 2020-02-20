@@ -1,133 +1,135 @@
 <html xmlns:th="https://thymeleaf.org">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <title>الصفحة الشخصية</title>
-
-    <link th:href="@{/styles/style.css}" rel="stylesheet" />
-    <script
-      src="https://kit.fontawesome.com/3959db2254.js"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      href="https://fonts.googleapis.com/css?family=Cairo:200,300,400,600,700,900&amp;subset=arabic,latin-ext"
-      rel="stylesheet"
-    />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
-
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link th:href="@{/styles/lightbox.css}" rel="stylesheet" />
-  </head>
-  <body style="font-family: 'Cairo', sans-serif;">
-    <div class="container-fluid pl-0 pr-0">
-      <div th:replace="header::header"></div>
-
-      <div style="margin-top: 174px;" class="main-section">
-        <h3
-          th:if="${#strings.equals(param.username,session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getUsername())}"
-          class="text-center"
-        >
-          <a th:href="@{/edit}" style="color:#f64c72;text-decoration: none;">
-            تعديل
-          </a>
-        </h3>
-        <div
-          class="text-center profile-content"
-          style="background-color: #fafbfe; padding:20px"
-        >
-          <a th:href="@{|/upload/profilepic/${profile}/${imagename}|}">
-            <img
-              th:src="@{|/upload/profilepic/${profile}/${imagename}|}"
-              alt=""
-              class="rounded-circle"
-              style="width: 68px;"
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
             />
-          </a>
-          <div
-            class="text-content p-0 my-5"
-            style="color: #f64c72; font-size: 22px;"
-          >
-            <p>
-              الاسم:شرف الدين
-            </p>
-            <p>
-              المدينة:السويس
-            </p>
-          </div>
-        </div>
+        <title>الصفحة الشخصية</title>
 
-        <a
-          class=" text-center"
-          type="button"
-          id="dropdownMenuButton"
-          aria-haspopup="true"
-          aria-expanded="false"
-          onclick="display_toggle()
+        <link th:href="@{/styles/style.css}" rel="stylesheet" />
+        <script
+            src="https://kit.fontawesome.com/3959db2254.js"
+            crossorigin="anonymous"
+        ></script>
+        <link
+            href="https://fonts.googleapis.com/css?family=Cairo:200,300,400,600,700,900&amp;subset=arabic,latin-ext"
+            rel="stylesheet"
+            />
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"
+        ></script>
+
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+            />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link th:href="@{/styles/lightbox.css}" rel="stylesheet" />
+    </head>
+    <body style="font-family: 'Cairo', sans-serif;">
+        <div class="container-fluid pl-0 pr-0">
+            <div th:replace="header::header"></div>
+
+            <div style="margin-top: 174px;" class="main-section">
+                <h3
+                    th:if="${#strings.equals(param.username,session[SPRING_SECURITY_CONTEXT].getAuthentication().getPrincipal().getUsername())}"
+                    class="text-center"
+                    >
+                    <a th:href="@{/edit}" style="color:#f64c72;text-decoration: none;">
+                        تعديل
+                    </a>
+                </h3>
+                <div
+                    class="text-center profile-content"
+                    style="background-color: #fafbfe; padding:20px"
+                    >
+                    <a th:href="@{|/upload/profilepic/${profile}/${imagename}|}">
+                        <img
+                            th:src="@{|/upload/profilepic/${profile}/${imagename}|}"
+                            alt=""
+                            class="rounded-circle"
+                            style="width: 68px;"
+                            />
+                    </a>
+                    <div
+                        class="text-content p-0 my-5"
+                        style="color: #f64c72; font-size: 22px;"
+                        >
+                        <p>
+                            الاسم:شرف الدين
+                        </p>
+                        <p>
+                            المدينة:السويس
+                        </p>
+                    </div>
+                </div>
+
+                <a
+                    class=" text-center"
+                    type="button"
+                    id="dropdownMenuButton"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    onclick="display_toggle()
                     "
-        >
-          <h3 class="" style="color: #f64c72; ">
-            عرض الاعلانات بتاعة الشخص دا
-          </h3>
-        </a>
+                    >
+                    <h3 class="" style="color: #f64c72; ">
+                        عرض الاعلانات بتاعة الشخص دا
+                    </h3>
+                </a>
 
-        <ul class="list-group" style="display:none"></ul>
-      </div>
-      <div th:replace="footer::footer"></div>
-    </div>
-    <style>
-      .show-list {
-        height: 300px;
-        overflow-y: scroll;
-        display: block !important;
-        color: #f64c72;
-      }
-      .list-group-item {
-        background-color: white !important;
-        transition: all 1s !important;
-      }
-      .list-group-item:hover {
-        background-color: #f0fff0 !important;
-        transition: all 0.5s !important;
-      }
+                <ul class="list-group" style="display:none"></ul>
+            </div>
+            <div th:replace="footer::footer"></div>
+        </div>
+        <style>
+            .show-list {
+                height: 300px;
+                overflow-y: scroll;
+                display: block !important;
+                color: #f64c72;
+            }
+            .list-group-item {
+                background-color: white !important;
+                transition: all 1s !important;
+            }
+            .list-group-item:hover {
+                background-color: #f0fff0 !important;
+                transition: all 0.5s !important;
+            }
 
-      .adhref {
-        text-decoration: none !important;
-        color: black !important;
-        transition: all 0.5s !important;
-      }
-      .adhref:hover {
-        font-size: 25px !important;
-        transform: translate(5, 0);
-        transition: all 0.5s !important;
-      }
-    </style>
-    <script>
-      /* let list = document.querySelector(".list-group");
+            .adhref {
+                text-decoration: none !important;
+                color: black !important;
+                transition: all 0.5s !important;
+            }
+            .adhref:hover {
+                font-size: 25px !important;
+                transform: translate(5, 0);
+                transition: all 0.5s !important;
+            }
+        </style>
+        <script>
+            const token = document.querySelector('meta[name="_csrf"]');
+            const header = document.querySelector('meta[name="_csrf_header"]');
+            /* let list = document.querySelector(".list-group");
              let listelement = ["sfd", "fdsf", "adsafadsf"];
-             
+         
              list.style.display = "none";
              function display_toggle() {
              if (!list.classList.contains("show-list")) {
@@ -138,108 +140,113 @@
              }
              }*/
 
-      let list = document.querySelector(".list-group");
-      var url_string = window.location.href;
-      var url = new URL(url_string);
-      var username = url.searchParams.get("username");
-      console.log("ahoso");
-      let xhr = new XMLHttpRequest();
-      var ads;
-      let xhr2 = new XMLHttpRequest();
-      var boolean;
-      xhr2.open("GET", "./users/isSameProfile?username=" + username);
-      xhr2.setRequestHeader(
-        "Content-type",
-        "application/x-www-form-urlencoded"
-      );
-      xhr2.send();
-      xhr2.onload = () => {
-        console.log(xhr2);
-        if (xhr2.responseText === "true") boolean = true;
-        else boolean = false;
-        console.log(boolean);
-      };
+            let list = document.querySelector(".list-group");
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var username = url.searchParams.get("username");
+            console.log("ahoso");
+            let xhr = new XMLHttpRequest();
+            var ads;
+            let xhr2 = new XMLHttpRequest();
+            var boolean;
+            xhr2.open("GET", "./users/isSameProfile?username=" + username);
+            xhr2.setRequestHeader(
+                    "Content-type",
+                    "application/x-www-form-urlencoded"
+                    );
+                  xhr2.setRequestHeader(header.content, token.content);
 
-      xhr.open("GET", "./sign/getadsprofile?username=" + username, true);
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhr.send();
-      xhr.onreadystatechange = function() {
-        /*     console.log(ads);
+            xhr2.send();
+            xhr2.onload = () => {
+                console.log(xhr2);
+                if (xhr2.responseText === "true")
+                    boolean = true;
+                else
+                    boolean = false;
+                console.log(boolean);
+            };
+
+            xhr.open("GET", "./sign/getadsprofile?username=" + username, true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                /*     console.log(ads);
                  console.log("ahoo");
                  console.log(this);*/
-      };
-      xhr.onload = () => addAds();
-      function addAds() {
-        console.log("loaded success");
-        console.log(xhr);
-        ads = JSON.parse(xhr.response);
-        console.log(ads);
-        ads.forEach(x => {
-          let li = document.createElement("li");
-          let href = document.createElement("a");
-          if (boolean) {
-            console.log(boolean);
-            let deletebtn = createDeletebtn(x.id);
-            li.appendChild(deletebtn);
-          }
-          li.classList.add("list-group-item");
+            };
+            xhr.onload = () => addAds();
+            function addAds() {
+                console.log("loaded success");
+                console.log(xhr);
+                ads = JSON.parse(xhr.response);
+                console.log(ads);
+                ads.forEach(x => {
+                    let li = document.createElement("li");
+                    let href = document.createElement("a");
+                    if (boolean) {
+                        console.log(boolean);
+                        let deletebtn = createDeletebtn(x.id);
+                        li.appendChild(deletebtn);
+                    }
+                    li.classList.add("list-group-item");
 
-          href.appendChild(document.createTextNode(x.title));
-          href.href = "/ad?id=" + x.id;
-          //  href.classList.add("stretched-link");
-          href.classList.add("adhref");
+                    href.appendChild(document.createTextNode(x.title));
+                    href.href = "/ad?id=" + x.id;
+                    //  href.classList.add("stretched-link");
+                    href.classList.add("adhref");
 
-          li.appendChild(href);
-          list.appendChild(li);
-        });
-      }
-      function createDeletebtn(id) {
-        let closebtn = document.createElement("button");
-        closebtn.classList.add("fas");
-        closebtn.classList.add("fa-times");
-        closebtn.style.color = "#f64c72";
-        closebtn.style.backgroundColor = "Transparent";
-        closebtn.style.border = "none";
-        closebtn.addEventListener("click", () => deleteAd(id, closebtn));
-        return closebtn;
-      }
-      function deleteAd(id, btn) {
-        console.log("this");
-        let xhr1 = new XMLHttpRequest();
-        xhr1.onload = () => removeAd(btn);
-        xhr1.open("DELETE", "./ad/deletead", true);
-        xhr1.setRequestHeader(
-          "Content-type",
-          "application/x-www-form-urlencoded"
-        );
-        xhr1.send(`id=${id}`);
-      }
-      function removeAd(btn) {
-        console.log(btn);
-        console.log(btn.parentNode);
-        let li = btn.parentNode;
-        li.parentNode.removeChild(li);
-      }
-      function display_toggle() {
-        /*ads.forEach(x =>{
-                 
+                    li.appendChild(href);
+                    list.appendChild(li);
+                });
+            }
+            function createDeletebtn(id) {
+                let closebtn = document.createElement("button");
+                closebtn.classList.add("fas");
+                closebtn.classList.add("fa-times");
+                closebtn.style.color = "#f64c72";
+                closebtn.style.backgroundColor = "Transparent";
+                closebtn.style.border = "none";
+                closebtn.addEventListener("click", () => deleteAd(id, closebtn));
+                return closebtn;
+            }
+            function deleteAd(id, btn) {
+                console.log("this");
+                let xhr1 = new XMLHttpRequest();
+                xhr1.onload = () => removeAd(btn);
+                xhr1.open("DELETE", "./ad/deletead", true);
+                xhr1.setRequestHeader(
+                        "Content-type",
+                        "application/x-www-form-urlencoded"
+                        );
+                xhr1.send(`id=${id}`);
+            }
+            function removeAd(btn) {
+                console.log(btn);
+                console.log(btn.parentNode);
+                let li = btn.parentNode;
+                li.parentNode.removeChild(li);
+            }
+            function display_toggle() {
+                /*ads.forEach(x =>{
+             
                  let li = document.createElement("li");
                  let href = document.createElement("a");
-                 
+             
                  li.classList.add("list-group-item");
-                 
+             
                  href.appendChild(document.createTextNode(x.title));
                  href.href="/ad?id="+x.id;
                  href.classList.add("stretched-link");
                  href.classList.add("adhref");
-                 
+             
                  li.appendChild(href)
                  list.appendChild(li);
                  });*/
-        if (list.classList.contains("show-list"))
-          list.classList.remove("show-list");
-        else list.classList.add("show-list");
-      }
-    </script>
-  </body>
+                if (list.classList.contains("show-list"))
+                    list.classList.remove("show-list");
+                else
+                    list.classList.add("show-list");
+            }
+        </script>
+    </body>
 </html>
