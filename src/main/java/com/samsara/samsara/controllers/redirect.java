@@ -10,11 +10,13 @@ import com.samsara.samsara.entities.User;
 import com.samsara.samsara.repositories.AdvertiseRepository;
 import com.samsara.samsara.services.AdvertiseService;
 import com.samsara.samsara.services.UserService;
+import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,11 +37,25 @@ public class redirect {
     @Autowired
     private AdvertiseRepository adrepo;
     
+    @GetMapping("/faq")
+        public String getFaq(){
+    return "faq.html";
+}
+        @GetMapping("/cwu")
+        public String getCWU(){
+            return "cwa.html";
+        }
     @RequestMapping(value={"/","/welcome"} )
-    public String welcomepage(Model model,HttpSession session) {
+    public String welcomepage(Model model,HttpSession session,HttpServletRequest request,Principal user) {
         System.out.println("hi");
-        if(session.getAttribute("SPRING_SECURITY_CONTEXT")==null)
+        System.out.println("referre"+request.getHeader("referer"));
+        if(session.getAttribute("SPRING_SECURITY_CONTEXT")==null){
+            if(user!=null)
+                System.out.println("user is not null");
+        else
+                System.out.println("user is null");
             return "welcome.html";
+        }
         else
         {
             new AdsApi(adrepo,userservice,adservice).setPagintation(model, 1);
@@ -54,7 +70,8 @@ public class redirect {
     }
     
     @RequestMapping("/sign-in")
-    public String signinpage(HttpSession session){
+    public String signinpage(HttpSession session,HttpServletRequest request){
+        System.out.println(request.getHeader("referer"));
         return session.getAttribute("SPRING_SECURITY_CONTEXT")==null? "sign-in.html" :"redirect:/";
     }
     
@@ -96,7 +113,6 @@ public class redirect {
         User user=userservice.findUserByUserName(username);
         model.addAttribute("profile",username);
         model.addAttribute("userads",user.getAds());
-        model.addAttribute("imagename",user.getImageUrl());
         return "profile.html";
         
     }
