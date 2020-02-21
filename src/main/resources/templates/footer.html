@@ -5,87 +5,98 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html xmlns:th="https://thymeleaf.org">
-  <head>
-    <meta charset="utf-8" />
-    <link
-      href="../static/styles/style.css"
-      rel="stylesheet"
-      th:href="@{/styles/style.css}"
-    />
+    <head>
+        <meta charset="utf-8" />
+        <link
+            href="../static/styles/style.css"
+            rel="stylesheet"
+            th:href="@{/styles/style.css}"
+            />
 
-    <script
-      src="https://kit.fontawesome.com/3959db2254.js"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      href="https://fonts.googleapis.com/css?family=Cairo:200,300,400,600,700,900&amp;subset=arabic,latin-ext"
-      rel="stylesheet"
-    />
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-  </head>
+        <script
+            src="https://kit.fontawesome.com/3959db2254.js"
+            crossorigin="anonymous"
+        ></script>
+        <link
+            href="https://fonts.googleapis.com/css?family=Cairo:200,300,400,600,700,900&amp;subset=arabic,latin-ext"
+            rel="stylesheet"
+            />
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"
+        ></script>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+            />
+    </head>
 
     <body>
         <footer th:fragment="footer">
-        <div class="footer-links">
-          <div class="navbar footer-navbar" style="background-color:#3500d3;width:100%; ">
-            <ul class="nav m-auto">
-              <li class="nav-item col-md-4 col-sm-12" style="transform:translate(-33.3%,0)">
-                <a
-                  href="https://www.facebook.com/Shrafeldeen1538"
-                  class="nav-link fab fa-facebook fa-2x"
-                  style="color: #f64c72;"
-                ></a>
-              </li>
-              <li class="nav-item col-md-4 col-sm-12" style="transform:translate(-15%,0)">
-                <a
-                  href="#"
-                  class="nav-link fab fa-whatsapp fa-2x"
-                  style="color: #f64c72"
-                  onclick="copyToClipBoard()"
-                ></a>
-              </li>
-              <li class="nav-item col-md-4 col-sm-12">
-                <a
-                  href="#"
-                  class="nav-link fab fa-twitter fa-2x"
-                  style="color: #f64c72"
-                ></a>
-              </li>
-            </ul>
-          </div>
-                        <script th:href="@{/scripts/script.js}"></script>
-                        <script>function copyToClipBoard(){
-                console.log("copying");
-            const phoneNumber=document.createElement("textarea");
-            document.body.appendChild(phoneNumber);
-            phoneNumber.value="01061445744";
-            phoneNumber.select();
-            phoneNumber.setSelectionRange(0,9999);
-            document.execCommand('copy');
-            document.body.removeChild(phoneNumber);
-        }</script>
+            <div class="footer-links">
+                <div class="navbar footer-navbar" style="background-color:#3500d3;width:100%; ">
+                    <ul class="nav m-auto">
+                        <li class="nav-item col-md-4 col-sm-12" >
+                            <a
+                                href="https://www.facebook.com/Shrafeldeen1538"
+                                class="nav-link fab fa-facebook fa-2x"
+                                style="color: #f64c72;"
+                                ></a>
+                        </li>
+                        <li class="nav-item col-md-4 col-sm-12" >
+                            <a
+                                href="#"
+                                class="nav-link fab fa-whatsapp fa-2x"
+                                style="color: #f64c72"
+                                onclick="copyToClipBoard()"
+                                ></a>
+                        </li>
+                        <li class="nav-item col-md-4 col-sm-12">
+                            <a
+                                href="#"
+                                class="nav-link fab fa-twitter fa-2x"
+                                style="color: #f64c72"
+                                ></a>
+                        </li>
+                    </ul>
+                </div>
+                <style>
+                    @media only screen and (min-width:576px ){
+                        .centerl{
+                            transform:translate(-33.3%,0);
+                        }
+                        .centerc{
+                            transform:translate(-15%,0);
+
+                        }
+                    }
+                </style>
+                <script th:href="@{/scripts/script.js}"></script>
+                <script>function copyToClipBoard() {
+                        console.log("copying");
+                        const phoneNumber = document.createElement("textarea");
+                        document.body.appendChild(phoneNumber);
+                        phoneNumber.value = "01061445744";
+                        phoneNumber.select();
+                        phoneNumber.setSelectionRange(0, 9999);
+                        document.execCommand('copy');
+                        document.body.removeChild(phoneNumber);
+                    }</script>
         </footer>
 
     </body>
-    
+
 </html>
