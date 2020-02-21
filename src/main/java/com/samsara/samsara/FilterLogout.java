@@ -78,6 +78,7 @@ public class FilterLogout extends AbstractAuthenticationProcessingFilter {
                         SecurityContextHolder.getContext().setAuthentication(auth);
                         request.getSession().setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
                         request.setAttribute("userurl", request.getRequestURL());
+                        request.getSession().setAttribute("user",user);
                     }
 
                     System.out.println("url is fucking" + request.getRequestURI());
