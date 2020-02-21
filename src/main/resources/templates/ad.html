@@ -166,7 +166,7 @@
                 </div>
                 <div class="tab-pane" id="images" aria-labelledby="myimage">
                   <div class="row">
-                    <figure th:each="img:${imgs}" class="col-3">
+                    <figure th:each="img:${imgs}" class="col-lg-3 col-12">
                       <a
                         href="../static/images/3r.jpg"
                         data-lightbox="image-1"
@@ -176,7 +176,7 @@
                         <img
                           class="img-fluid"
                           style="height: 200px;"
-                          th:src="@{|/upload/images/${currentAd.id}/${img}|}"
+                          th:src="@{|/images/${currentAd.id}/${img}|}"
                         />
                       </a>
                     </figure>

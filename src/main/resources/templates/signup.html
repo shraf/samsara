@@ -61,15 +61,15 @@
           onsubmit="validate(event)"
         >
           <div class="form-group row">
-            <div class="col-md-6 col-12">
+            <div class="col-lg-6 col-12">
               <div class="row">
                 <label
                   for="username "
                   style=""
-                  class="col-md-4 col-12 col-form-label"
+                  class="col-lg-4 col-12 col-form-label"
                   >اسم المستخدم</label
                 >
-                <div class="col-md-8 col-12">
+                <div class="col-lg-8 col-12">
                   <input
                     name="userName"
                     type="text"
@@ -80,16 +80,16 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6 col-12">
+            <div class="col-lg-6 col-12">
               <div class="row">
                 <label for="password" class="col-3 col-form-label"
                   >كلمة السر</label
                 >
-                <div class="col-md-9 col-12">
+                <div class="col-lg-9 col-12">
                   <input
                     name="password"
                     type="password"
-                    class="form-control col-md-10 col-12"
+                    class="form-control col-lg-10 col-12"
                     id="password"
                   />
                 </div>
@@ -97,15 +97,15 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="repassword" class="col-md-2 col-12"
+            <label for="repassword" class="col-lg-2 col-12"
               >تأكيد كلمة السر</label
             >
-            <div class="col-md-10 col-12">
+            <div class="col-lg-10 col-12">
               <input
                 name="repassword"
                 type="password"
-                class="form-control"
-                style="width:93%; "
+                class="form-control fill-width"
+                
                 id="repassword"
               />
             </div>
@@ -114,13 +114,12 @@
             <label for="email-address" class="col-md-2 col-12"
               >البريد الالكترونى</label
             >
-            <div class="col-md-10 col-12">
+            <div class="col-lg-10 col-12">
               <input
                 name="email"
                 type="email"
-                class="form-control"
+                class="form-control fill-width"
                 placeholder="البريد الالكترونى"
-                style="width: 93%"
                 id="email"
               />
             </div>
@@ -141,6 +140,17 @@
 
       <div th:replace="footer::footer"></div>
     </div>
+      
     <script src="/scripts/script.js"></script>
+    <style>
+        .fill-width{
+            width:93%;
+        }
+@media only screen and (max-width: 991px) {
+            .fill-width{
+                width:100% !important;
+            }
+        }
+    </style>
   </body>
 </html>
